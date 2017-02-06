@@ -4,7 +4,8 @@ import os
 
 
 async def run():
-    conn = await asyncpg.connect(user='sardor')
+    dsn = os.environ.get('DATABASE_URL')
+    conn = await asyncpg.connect(dsn)
     stmt = await conn.prepare('SELECT id FROM users WHERE id = $1')
     print('user ->', await stmt.fetchval(56781796))
     await conn.close()
