@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 import asyncio
 import uvloop
 from bot import bot
@@ -19,4 +20,4 @@ if __name__ == '__main__':
     try:
         loop.run_until_complete(start())
     except KeyboardInterrupt:
-        pass
+        sys.exit(0)
