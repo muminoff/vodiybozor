@@ -38,8 +38,18 @@ async def start(chat, match):
 
     async with pool.acquire() as connection:
         try:
+            if not (await connection.fetch('SELECT id FROM users WHERE id=$1', chat.sender['id'])):
+                id = chat.sender.get('id')
+                first_name = chat.sender.get('first_name')
+                last_name = chat.sender.get('last_name', '')
+                username = chat.sender.get('username', '')
+                logger.info('New user --> %s', chat.sender)
+                await connection.execute('''
+                INSERT INTO users(id, first_name, last_name, username)
+                VALUES ($1, $2, $3, $4)
+                ''', id, first_name, last_name, username)
+
             values = await connection.fetch('SELECT now()')
-            logger.info('----> %s', values)
             await chat.send_text(values)
         finally:
             await pool.release(connection)
