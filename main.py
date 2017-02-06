@@ -1,23 +1,66 @@
 import logging
+from aiotg import Bot
 import os
-import sys
 import asyncio
 import uvloop
-from bot import bot
-
+from asyncpg import create_pool
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+# Main
 
-async def start():
+greeting = '''
+Hi {name}!
+'''
+
+help = '''
+Help menu
+'''
+
+not_found = '''
+Not found
+'''
+
+
+bot = Bot(
+    api_token=os.environ.get('API_TOKEN'),
+    name=os.environ.get('BOT_NAME'))
+
+logger = logging.getLogger('bot')
+# loglevel = logging.DEBUG if os.getenv('DEBUG') else logging.INFO
+loglevel = logging.DEBUG
+logging.basicConfig(level=loglevel)
+
+
+@bot.command(r'/start')
+async def start(chat, match):
+    await chat.send_text(greeting.format(name=chat.sender['first_name']))
+    logger.info('/start from %s', chat.sender)
+
+    async with pool.acquire() as connection:
+        try:
+            values = await connection.fetch('SELECT now()')
+            logger.info('----> %s', values)
+            await chat.send_text(values)
+        finally:
+            await pool.release(connection)
+
+
+@bot.command(r'/?help')
+def usage(chat, match):
+    return chat.send_text(help)
+
+
+async def run_bot():
     await bot.loop()
+
+async def make_pool():
+    dsn = os.environ.get('DATABASE_URL')
+    return await create_pool(dsn, max_size=20)
+
+
+loop = asyncio.get_event_loop()
+pool = loop.run_until_complete(make_pool())
 
 
 if __name__ == '__main__':
-    loglevel = logging.DEBUG if os.getenv('DEBUG') else logging.INFO
-    logging.basicConfig(level=loglevel)
-
-    loop = asyncio.get_event_loop()
-    try:
-        loop.run_until_complete(start())
-    except KeyboardInterrupt:
-        sys.exit(0)
+    loop.run_until_complete(run_bot())
