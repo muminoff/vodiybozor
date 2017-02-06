@@ -1,11 +1,15 @@
 import asyncio
 import asyncpg
+import os
+import logging
 
 
 async def run():
-    conn = await asyncpg.connect(user='sardor', password='', database='sardor', host='127.0.0.1')
+    logger = logging.getLogger('db')
+    connection_dsn = os.environ.get('DATABASE_URL')
+    conn = await asyncpg.connect(connection_dsn)
     values = await conn.fetch('''SELECT now()''')
-    print('------------>', values)
+    logger.info('Database query -> %s', values)
     await conn.close()
 
 async def start():
