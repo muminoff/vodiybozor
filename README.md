@@ -1,8 +1,13 @@
 # VodiyBozorBot
 Bot for VodiyBozor channel
 
-## How to install
+## Requirements
 
-```shell
-$ pip install -r requirements.txt
-```
+* Python 3.6
+* asyncio
+* aiohttp
+* uvloop
+* aiotg
+* asyncpg
+* aiobotocore
+* Postgresql 9.6
