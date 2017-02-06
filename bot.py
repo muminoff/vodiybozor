@@ -1,8 +1,12 @@
+# Main
+from aiotg import Bot
+
+# Misc
 import os
 import logging
 
-from aiotg import Bot
-import asyncpg
+# Database
+from database import sardor
 
 greeting = '''
 Ассалому алайкум, {name}!
@@ -33,31 +37,8 @@ logger = logging.getLogger('bot')
 
 @bot.command(r'/start')
 async def start(chat, match):
-    # tuid = chat.sender['id']
-    # if not (await db.users.find_one({ 'id': tuid })):
-    #     logger.info('new user %s', chat.sender)
-    #     await db.users.insert(chat.sender.copy())
-    # conn = await asyncpg.connect(user='sardor', password='', database='sardor', host='127.0.0.1')
-    # values = await conn.prepare('''SELECT * FROM users''')
-    # logger.info('values %s', values)
-    # await conn.close()
-    # async for value in values.cursor:
-    #     await chat.send_text(value)
+    await chat.send_text(greeting.format(name=chat.sender['first_name']))
     logger.info('/start from %s', chat.sender)
-    connection_dsn = os.environ.get('DATABASE_URL')
-    conn = await asyncpg.connect(connection_dsn)
-    values = await conn.fetch('''SELECT now()''')
-    logger.info('Database query -> %s', values)
-    await conn.close()
-    # await chat.send_text(greeting.format(name=chat.sender['first_name']))
-    await chat.send_text(values)
-
-
-@bot.command(r'/stop')
-async def stop(chat, match):
-    # tuid = chat.sender['id']
-    logger.info('%s quit', chat.sender)
-    await chat.send_text('Goodbye! We will miss you 😢')
 
 
 @bot.command(r'/?help')

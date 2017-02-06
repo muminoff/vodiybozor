@@ -1,8 +1,11 @@
 import logging
 import os
 import asyncio
-
+import uvloop
 from bot import bot
+
+
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 async def start():
     await bot.loop()
