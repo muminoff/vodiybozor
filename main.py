@@ -26,7 +26,6 @@ bot = Bot(
     name=os.environ.get('BOT_NAME'))
 
 logger = logging.getLogger('bot')
-# loglevel = logging.DEBUG if os.getenv('DEBUG') else logging.INFO
 loglevel = logging.DEBUG
 logging.basicConfig(level=loglevel)
 
