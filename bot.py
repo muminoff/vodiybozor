@@ -44,7 +44,13 @@ async def start(chat, match):
     # async for value in values.cursor:
     #     await chat.send_text(value)
     logger.info('/start from %s', chat.sender)
-    await chat.send_text(greeting.format(name=chat.sender['first_name']))
+    connection_dsn = os.environ.get('DATABASE_URL')
+    conn = await asyncpg.connect(connection_dsn)
+    values = await conn.fetch('''SELECT now()''')
+    logger.info('Database query -> %s', values)
+    await conn.close()
+    # await chat.send_text(greeting.format(name=chat.sender['first_name']))
+    await chat.send_text(values)
 
 
 @bot.command(r'/stop')
