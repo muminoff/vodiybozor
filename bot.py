@@ -31,19 +31,24 @@ async def start(chat, match):
     last_name = chat.sender.get('last_name', '')
     username = chat.sender.get('username', '')
 
-    async with chat.bot.pool.acquire() as conn:
-        try:
-            if not (await conn.fetch('SELECT id FROM users WHERE id=$1', chat.sender['id'])):
-                logger.info('New user --> %s', chat.sender)
-                await conn.execute('''
-                INSERT INTO users(id, first_name, last_name, username)
-                VALUES ($1, $2, $3, $4)
-                ''', id, first_name, last_name, username)
-                reply_text = first_time_greeting.format(name=first_name)
-            else:
-                reply_text = greeting.format(name=first_name)
+    if len(last_name) > 0 and last_name != '':
+        name = '{0} {1}'.format(first_name, last_name)
+    else:
+        name = first_name
 
-            await chat.send_text(reply_text)
+    conn = await chat.bot.pool.acquire()
+    try:
+        if not (await conn.fetch('SELECT id FROM users WHERE id=$1', id)):
+            logger.info('New user --> %s', chat.sender)
+            await conn.execute('''
+            INSERT INTO users(id, first_name, last_name, username)
+            VALUES ($1, $2, $3, $4)
+            ''', id, first_name, last_name, username)
+            reply_text = first_time_greeting.format(name=name)
+        else:
+            reply_text = greeting.format(name=first_name)
 
-        finally:
-            await chat.bot.pool.release(conn)
+        await chat.send_text(reply_text)
+
+    finally:
+        await chat.bot.pool.release(conn)
