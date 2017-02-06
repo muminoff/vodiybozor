@@ -31,10 +31,11 @@ logging.basicConfig(level=loglevel)
 
 @bot.command(r'/start')
 async def start(chat, match):
+    print(dir(chat.bot))
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
     logger.info('/start from %s', chat.sender)
 
-    async with pool.acquire() as connection:
+    async with chat.bot.pool.acquire() as connection:
         try:
             if not (await connection.fetch('SELECT id FROM users WHERE id=$1', chat.sender['id'])):
                 id = chat.sender.get('id')
@@ -50,7 +51,7 @@ async def start(chat, match):
             values = await connection.fetch('SELECT now()')
             await chat.send_text(values)
         finally:
-            await pool.release(connection)
+            await chat.bot.pool.release(connection)
 
 
 @bot.command(r'/?help')
@@ -68,6 +69,7 @@ async def make_pool():
 
 loop = asyncio.get_event_loop()
 pool = loop.run_until_complete(make_pool())
+setattr(bot, 'pool', pool)
 
 
 if __name__ == '__main__':
