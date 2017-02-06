@@ -9,7 +9,7 @@ async def start():
 
 
 if __name__ == '__main__':
-    loglevel = logging.DEBUG if os.getenv("DEBUG") else logging.INFO
+    loglevel = logging.DEBUG if os.getenv('DEBUG') else logging.INFO
     logging.basicConfig(level=loglevel)
 
     loop = asyncio.get_event_loop()

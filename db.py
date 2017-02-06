@@ -5,7 +5,7 @@ import asyncpg
 async def run():
     conn = await asyncpg.connect(user='sardor', password='', database='sardor', host='127.0.0.1')
     values = await conn.fetch('''SELECT now()''')
-    print("------------>", values)
+    print('------------>', values)
     await conn.close()
 
 async def start():
