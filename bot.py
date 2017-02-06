@@ -26,7 +26,7 @@ not_found = '''
 
 bot = Bot(
     api_token=os.environ.get('API_TOKEN'),
-    name=os.environ.get('BOT_NAME', 'VodiyBozorTestBot')
+    name=os.environ.get('BOT_NAME')
 )
 logger = logging.getLogger('bot')
 
