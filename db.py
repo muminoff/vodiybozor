@@ -10,6 +10,7 @@ async def run():
     conn = await asyncpg.connect(connection_dsn)
     values = await conn.fetch('''SELECT now()''')
     logger.info('Database query -> %s', values)
+    print('--------------------->', values)
     await conn.close()
 
 async def start():
