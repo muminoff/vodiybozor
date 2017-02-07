@@ -7,8 +7,8 @@ from bot import bot
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
-async def run_bot():
-    await bot.loop()
+# async def run_bot():
+#     await bot.loop()
 
 
 async def make_pool():
@@ -22,4 +22,5 @@ setattr(bot, 'pool', pool)
 
 
 if __name__ == '__main__':
-    loop.run_until_complete(run_bot())
+    # loop.run_until_complete(run_bot())
+    bot.run_webhook(webhook_url="https://vodiybozorbot.herokuapp.com/webhook")
