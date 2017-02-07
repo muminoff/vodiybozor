@@ -4,5 +4,6 @@ CREATE TABLE smartphones (
     name text,
     year integer,
     price numeric,
-    published timestamp without time zone DEFAULT timezone('Asia/Tashkent'::text, now())
+    is_published bool DEFAULT false,
+    created timestamp without time zone DEFAULT timezone('Asia/Tashkent'::text, now())
 );
