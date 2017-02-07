@@ -8,7 +8,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
 async def run_bot():
-    stop_webhook()
+    bot.stop_webhook()
     await bot.loop()
 
 
