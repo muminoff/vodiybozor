@@ -39,6 +39,30 @@ async def start(chat, match):
 
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
 
+@bot.command(r'/info')
+async def stop(chat, match):
+    info = text('''
+    Маълумот
+    ''')
+    logger.info('%s info requested by', chat.sender)
+    return chat.send_text(info)
+
+@bot.command(r'/elua')
+async def stop(chat, match):
+    info = text('''
+    Хизмат шартлари
+    ''')
+    logger.info('%s eula requested by', chat.sender)
+    return chat.send_text(info)
+
+@bot.command(r'/contact')
+async def stop(chat, match):
+    info = text('''
+    Админ билан боғланиш
+    ''')
+    logger.info('%s contact requested by', chat.sender)
+    return chat.send_text(info)
+
 @bot.command(r'/stop')
 async def stop(chat, match):
     farewell = text('''
