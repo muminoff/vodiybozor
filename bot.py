@@ -55,7 +55,7 @@ def stop(chat, match):
     logger.info('%s info requested by', chat.sender)
     return chat.send_text(info)
 
-@bot.command(r'/elua')
+@bot.command(r'/eula')
 def stop(chat, match):
     info = text('''
     Хизмат шартлари
@@ -74,9 +74,9 @@ def stop(chat, match):
 @bot.command(r'/stop')
 async def stop(chat, match):
     farewell = text('''
-    Қизиқиш ва эътибор учун раҳмат {name}.
+    Қизиқиш учун раҳмат {name}.
     Каналимизни кузатишда давом этинг.
-    Каналимиз манзили https://t.me/vodiybozor
+    Канал манзили https://t.me/vodiybozor
     ''')
     await deactivate_user(chat.bot.pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
