@@ -1,7 +1,8 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-DROP TABLE smartphones;
-CREATE TABLE smartphones (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+DROP TABLE products;
+CREATE TABLE products (
+    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+    type_fk uuid REFERENCES product_types(id),
     name text,
     year integer,
     price numeric,
