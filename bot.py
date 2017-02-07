@@ -39,6 +39,14 @@ async def start(chat, match):
 
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
 
+@bot.command(r'/menu')
+async def stop(chat, match):
+    info = text('''
+    Бош меню
+    ''')
+    logger.info('%s menu requested by', chat.sender)
+    return chat.send_text(info)
+
 @bot.command(r'/info')
 async def stop(chat, match):
     info = text('''
