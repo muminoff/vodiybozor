@@ -40,7 +40,7 @@ async def start(chat, match):
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
 
 @bot.command(r'/menu')
-async def stop(chat, match):
+def stop(chat, match):
     info = text('''
     Бош меню
     ''')
@@ -48,7 +48,7 @@ async def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/info')
-async def stop(chat, match):
+def stop(chat, match):
     info = text('''
     Маълумот
     ''')
@@ -56,7 +56,7 @@ async def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/elua')
-async def stop(chat, match):
+def stop(chat, match):
     info = text('''
     Хизмат шартлари
     ''')
@@ -64,7 +64,7 @@ async def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/contact')
-async def stop(chat, match):
+def stop(chat, match):
     info = text('''
     Админ билан боғланиш
     ''')
