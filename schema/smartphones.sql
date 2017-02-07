@@ -1,4 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+DROP TABLE smartphones;
 CREATE TABLE smartphones (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name text,
