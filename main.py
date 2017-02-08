@@ -28,7 +28,7 @@ webhook_url = os.environ.get('APP_URL') + 'webhook'
 loop.run_until_complete(bot.set_webhook(webhook_url))
 
 # App
-app = bot.create_webhook_app('webhook', loop)
+app = bot.create_webhook_app('/webhook', loop)
 
 
 # if __name__ == '__main__':
