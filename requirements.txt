@@ -1,3 +1,4 @@
--e git+https://github.com/muminoff/aiotg#egg=aiotg
+-e git+https://github.com/szastupov/aiotg#egg=aiotg
 asyncpg==0.8.4
 uvloop==0.7.2
+gunicorn
