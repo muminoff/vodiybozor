@@ -8,6 +8,7 @@ from queries.users import user_exists
 from queries.users import insert_user
 from queries.users import deactivate_user
 from queries.users import has_user_products
+from queries.users import is_user_admin
 
 
 bot = Bot(
@@ -101,9 +102,20 @@ async def stop(chat, match):
 
 
 @bot.command(r'/check')
-async def start(chat, match):
+async def check(chat, match):
 
     result = await has_user_products(chat.bot.pool, chat.sender)
     logger.info('User %s has products', result)
 
     await chat.send_text(result)
+
+
+@bot.command(r'/amiadmin')
+async def amiadmin(chat, match):
+
+    result = await is_user_admin(chat.bot.pool, chat.sender)
+    logger.info('User %s is admin', result)
+
+    text = lambda r: 'admin' if r else 'not admin'
+
+    await chat.send_text(text(result))

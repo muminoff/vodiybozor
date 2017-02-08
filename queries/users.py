@@ -68,3 +68,20 @@ async def has_user_products(pool, user):
         await pool.release(conn)
 
     return result
+
+
+async def is_user_admin(pool, user):
+    query = '''
+    SELECT EXISTS(SELECT id FROM users WHERE id=$1 and is_admin IS TRUE);
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        id = user.get('id')
+        result = await conn.fetchval(query, id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
