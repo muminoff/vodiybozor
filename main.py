@@ -13,7 +13,7 @@ async def run_bot():
 
 async def make_pool():
     dsn = os.environ.get('DATABASE_URL')
-    return await create_pool(dsn=dsn, min_size=10, max_size=20)
+    return await create_pool(dsn=dsn, min_size=1, max_size=2)
 
 
 # Main loop
