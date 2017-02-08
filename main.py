@@ -25,7 +25,7 @@ setattr(bot, 'pool', pool)
 
 # Webhook
 webhook_url = os.environ.get('APP_URL') + 'webhook'
-loop.run_until_complete(bot.set_webhook(webhook_url))
+# loop.run_until_complete(bot.set_webhook(webhook_url))
 
 # App
 app = bot.create_webhook_app('/webhook', loop)
