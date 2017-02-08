@@ -7,6 +7,7 @@ from aiotg import Bot
 from queries.users import user_exists
 from queries.users import insert_user
 from queries.users import deactivate_user
+from queries.users import has_user_products
 
 
 bot = Bot(
@@ -41,6 +42,7 @@ async def start(chat, match):
 
 @bot.command(r'/menu')
 def stop(chat, match):
+    print(dir(chat))
     info = text('''
     Бош меню
     ''')
@@ -96,3 +98,12 @@ async def stop(chat, match):
     await deactivate_user(chat.bot.pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
     await chat.send_text(farewell.format(name=chat.sender['first_name']), disable_web_page_preview=True)
+
+
+@bot.command(r'/check')
+async def start(chat, match):
+
+    result = await has_user_products(chat.bot.pool, chat.sender)
+    logger.info('User %s has products', result)
+
+    await chat.send_text(result)

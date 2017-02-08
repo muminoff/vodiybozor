@@ -22,5 +22,5 @@ setattr(bot, 'pool', pool)
 
 
 if __name__ == '__main__':
-    # loop.run_until_complete(run_bot())
-    bot.run_webhook(webhook_url=os.environ.get('APP_URL') + 'webhook')
+    loop.run_until_complete(run_bot())
+    # bot.run_webhook(webhook_url=os.environ.get('APP_URL') + 'webhook')

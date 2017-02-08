@@ -51,3 +51,20 @@ async def deactivate_user(pool, user):
 
     finally:
         await pool.release(conn)
+
+
+async def has_user_products(pool, user):
+    query = '''
+    SELECT EXISTS(SELECT id FROM products WHERE written_by=$1)
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        id = user.get('id')
+        result = await conn.fetchval(query, id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
