@@ -105,13 +105,13 @@ async def make_user_admin(pool, username):
 
 async def get_admins(pool):
     query = '''
-    SELECT id FROM users WHERE is_admin=True
+    SELECT id, username FROM users WHERE is_admin=True
     '''
 
     conn = await pool.acquire()
 
     try:
-        result = await conn.fetchval(query)
+        result = await conn.fetch(query)
 
     finally:
         await pool.release(conn)

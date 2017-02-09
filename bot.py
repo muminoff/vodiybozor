@@ -113,7 +113,9 @@ async def stop(chat, match):
 @bot.command(r'/admins')
 async def admins(chat, match):
     admins = await get_admins(chat.bot.pg_pool)
-    await chat.send_text(admins)
+
+    for admin in admins:
+        await chat.send_text('@' + admin['username'])
 
 @bot.command(r'/aaa')
 async def aaa(chat, match):
