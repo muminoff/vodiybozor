@@ -8,6 +8,12 @@ from bot import bot
 
 from aiohttp import web
 
+
+async def make_pool():
+    dsn = os.environ.get('DATABASE_URL')
+    return await create_pool(dsn=dsn, min_size=1, max_size=2)
+
+
 async def index(request):
     return web.Response(text="VodiyBozor")
 
@@ -16,6 +22,7 @@ app.router.add_route('GET', '/', index)
 app.router.add_route('POST', '/webhook', bot.webhook_handle)
 url = os.environ.get('APP_URL') + 'webhook'
 await bot.set_webhook(url)
+setattr(bot, 'pool', make_pool())
 
 
 # async def run_bot():
