@@ -87,7 +87,7 @@ async def is_user_admin(pool, user):
     return result
 
 
-async def make_user_admin(pool, user):
+async def make_user_admin(pool, username):
     query = '''
     UPDATE users
     SET is_admin=true
@@ -97,7 +97,6 @@ async def make_user_admin(pool, user):
     conn = await pool.acquire()
 
     try:
-        username = user.get('username')
         await conn.execute(query, username)
 
     finally:

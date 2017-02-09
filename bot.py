@@ -7,8 +7,6 @@ from aiotg import Bot
 from queries.users import user_exists
 from queries.users import insert_user
 from queries.users import deactivate_user
-from queries.users import has_user_products
-from queries.users import is_user_admin
 
 
 bot = Bot(
@@ -42,7 +40,7 @@ async def start(chat, match):
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
 
 @bot.command(r'/menu')
-def stop(chat, match):
+def menu(chat, match):
     print(dir(chat))
     info = text('''
     Бош меню
@@ -51,7 +49,7 @@ def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/info')
-def stop(chat, match):
+def info(chat, match):
     info = text('''
     Каналнинг қонун-қоидалари мавжуд ва админлар томонидан назорат қилинади.
 
@@ -74,7 +72,7 @@ def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/eula')
-def stop(chat, match):
+def eula(chat, match):
     info = text('''
     Хизмат шартлари
     ''')
@@ -82,7 +80,7 @@ def stop(chat, match):
     return chat.send_text(info)
 
 @bot.command(r'/contact')
-def stop(chat, match):
+def contact(chat, match):
     info = text('''
     Админ билан боғланиш
     ''')
@@ -99,23 +97,3 @@ async def stop(chat, match):
     await deactivate_user(chat.bot.pg_pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
     await chat.send_text(farewell.format(name=chat.sender['first_name']), disable_web_page_preview=True)
-
-
-@bot.command(r'/check')
-async def check(chat, match):
-
-    result = await has_user_products(chat.bot.pg_pool, chat.sender)
-    logger.info('User %s has products', result)
-
-    await chat.send_text(result)
-
-
-@bot.command(r'/amiadmin')
-async def amiadmin(chat, match):
-
-    result = await is_user_admin(chat.bot.pg_pool, chat.sender)
-    logger.info('User %s is admin', result)
-
-    text = lambda r: 'admin' if r else 'not admin'
-
-    await chat.send_text(text(result))
