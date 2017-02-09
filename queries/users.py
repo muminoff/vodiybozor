@@ -4,7 +4,7 @@ import asyncpg
 async def connection():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
-    return await conn
+    return conn
 
 
 async def user_exists(user):
