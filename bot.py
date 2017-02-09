@@ -34,9 +34,9 @@ async def start(chat, match):
     Админ билан боғланиш /contact
     ''')
 
-    await insert_user(chat.bot.pool, chat.sender)
+    await insert_user(chat.sender)
 
-    if await user_exists(chat.bot.pool, chat.sender):
+    if await user_exists(chat.sender):
         logger.info('User %s already exists', chat.sender)
 
     await chat.send_text(greeting.format(name=chat.sender['first_name']))
@@ -96,7 +96,7 @@ async def stop(chat, match):
     Каналимизни кузатишда давом этинг.
     Канал манзили https://t.me/vodiybozor
     ''')
-    await deactivate_user(chat.bot.pool, chat.sender)
+    await deactivate_user(chat.sender)
     logger.info('%s deactivated', chat.sender)
     await chat.send_text(farewell.format(name=chat.sender['first_name']), disable_web_page_preview=True)
 
@@ -104,7 +104,7 @@ async def stop(chat, match):
 @bot.command(r'/check')
 async def check(chat, match):
 
-    result = await has_user_products(chat.bot.pool, chat.sender)
+    result = await has_user_products(chat.sender)
     logger.info('User %s has products', result)
 
     await chat.send_text(result)
@@ -113,7 +113,7 @@ async def check(chat, match):
 @bot.command(r'/amiadmin')
 async def amiadmin(chat, match):
 
-    result = await is_user_admin(chat.bot.pool, chat.sender)
+    result = await is_user_admin(chat.sender)
     logger.info('User %s is admin', result)
 
     text = lambda r: 'admin' if r else 'not admin'
