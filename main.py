@@ -15,7 +15,7 @@ app = web.Application()
 app.router.add_route('GET', '/', index)
 app.router.add_route('POST', '/webhook', bot.webhook_handle)
 url = os.environ.get('APP_URL') + 'webhook'
-bot.set_webhook(url)
+await bot.set_webhook(url)
 
 
 # async def run_bot():
