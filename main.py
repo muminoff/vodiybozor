@@ -34,5 +34,5 @@ setattr(bot, 'pg_pool', pg_pool)
 
 
 if __name__ == '__main__':
-    # loop.run_until_complete(run_bot())
-    bot.run_webhook(os.environ.get('APP_URL') + 'webhook')
+    loop.run_until_complete(run_bot())
+    # bot.run_webhook(os.environ.get('APP_URL') + 'webhook')

@@ -7,6 +7,7 @@ from aiotg import Bot
 from queries.users import user_exists
 from queries.users import insert_user
 from queries.users import deactivate_user
+from queries.users import get_admins
 
 
 bot = Bot(
@@ -97,3 +98,33 @@ async def stop(chat, match):
     await deactivate_user(chat.bot.pg_pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
     await chat.send_text(farewell.format(name=chat.sender['first_name']), disable_web_page_preview=True)
+    # kb = [['Ҳа'], ['Йўқ']]
+    kb = {
+        'text': 'give number',
+        'request_contact': True
+    }
+    import json
+    keyboard = {
+        "keyboard": kb,
+        # "resize_keyboard": True,
+    }
+    await chat.send_text(text='Каналга ёзиласизми?', reply_markup=json.dumps(keyboard))
+
+@bot.command(r'/admins')
+async def admins(chat, match):
+    admins = await get_admins(chat.bot.pg_pool)
+    await chat.send_text(admins)
+
+@bot.command(r'/aaa')
+async def aaa(chat, match):
+    # kb = [['Ҳа'], ['Йўқ']]
+    kb = {
+        'text': 'give number',
+        'request_contact': True
+    }
+    import json
+    keyboard = {
+        "keyboard": kb,
+        # "resize_keyboard": True,
+    }
+    await chat.send_text(text='Каналга ёзиласизми?', reply_markup=json.dumps(keyboard))
