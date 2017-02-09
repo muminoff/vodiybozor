@@ -85,3 +85,20 @@ async def is_user_admin(pool, user):
         await pool.release(conn)
 
     return result
+
+
+async def make_user_admin(pool, user):
+    query = '''
+    UPDATE users
+    SET is_admin=true
+    WHERE username=$1
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        username = user.get('username')
+        await conn.execute(query, username)
+
+    finally:
+        await pool.release(conn)
