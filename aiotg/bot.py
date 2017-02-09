@@ -364,19 +364,6 @@ class Bot:
         self._process_update(update)
         return web.Response()
 
-    async def index(request):
-        return web.Response(text="Welcome home!")
-
-#     def create_webhook_app(self, path):
-#         print('Creating webhook ...')
-#         """
-#         Shorthand for creating aiohttp.web.Application with registered webhook hanlde
-#         """
-#         app = web.Application()
-#         app.router.add_get(path, self.index)
-#         # app.router.add_route('POST', path, self.webhook_handle)
-#         return app
-
     def set_webhook(self, webhook_url, **options):
         """
         Register you webhook url for Telegram service.
