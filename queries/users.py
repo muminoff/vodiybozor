@@ -1,3 +1,5 @@
+import os
+
 async def connection():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
