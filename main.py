@@ -31,28 +31,28 @@ async def run_bot():
 async def make_pg_pool():
     dsn = os.environ.get('DATABASE_URL')
     return await create_pg_pool(
-            dsn=dsn,
-            min_size=1,
-            max_size=2)
+        dsn=dsn,
+        min_size=1,
+        max_size=2)
 
 
 async def make_redis_pool():
     redis_url = os.environ.get('REDIS_URL')
     url = urlparse(redis_url)
     return await create_redis_pool(
-            (url.hostname, url.port),
-            password=url.password,
-            minsize=1,
-            maxsize=2)
+        (url.hostname, url.port),
+        password=url.password,
+        minsize=1,
+        maxsize=2)
 
 async def make_s3_client(loop):
     aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
     aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
     session = boto_session(loop=loop)
     return session.create_client(
-            's3', region_name='us-east-1',
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key)
+        's3', region_name='us-east-1',
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key)
 
 # Main event loop
 loop = asyncio.get_event_loop()

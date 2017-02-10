@@ -13,6 +13,6 @@ async def process_stop_command(chat, match, logger):
     await deactivate_user(chat.bot.pg_pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
     await chat.send_text(
-            farewell.format(name=chat.sender['first_name']),
-            parse_mode='Markdown',
-            disable_web_page_preview=True)
+        farewell.format(name=chat.sender['first_name']),
+        parse_mode='Markdown',
+        disable_web_page_preview=True)

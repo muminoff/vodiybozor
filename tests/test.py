@@ -3,7 +3,6 @@ import asyncio
 import os
 
 
-
 async def main():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)

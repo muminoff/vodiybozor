@@ -6,7 +6,6 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 
-
 async def go(loop):
     bucket = 'vodiybozor'
     filename = '563245235_1489327598.jpg'
@@ -18,7 +17,7 @@ async def go(loop):
                                    aws_access_key_id=AWS_ACCESS_KEY_ID,
                                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     # upload object to amazon s3
-    data = b'\x01'*4096
+    data = b'\x01' * 4096
     resp = await client.put_object(Bucket=bucket, Key=key, Body=data)
 
 loop = asyncio.get_event_loop()

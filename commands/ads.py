@@ -21,7 +21,7 @@ async def process_ads_command(chat, match, logger):
 
     logger.info('%s ads requested by', chat.sender)
     await chat.send_text(
-            info.format(name=chat.sender['first_name']),
-            parse_mode='Markdown',
-            disable_web_page_preview=True,
-            reply_markup=json.dumps(reply_keyboard_markup))
+        info.format(name=chat.sender['first_name']),
+        parse_mode='Markdown',
+        disable_web_page_preview=True,
+        reply_markup=json.dumps(reply_keyboard_markup))

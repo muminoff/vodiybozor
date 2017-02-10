@@ -33,40 +33,47 @@ async def start(chat, match):
     await process_start_command(chat, match, logger)
     await process_ads_command(chat, match, logger)
 
+
 @bot.command(r'/ads')
 async def ads(chat, match):
     await process_ads_command(chat, match, logger)
+
 
 @bot.command(r'/rules')
 async def rules(chat, match):
     await process_rules_command(chat, match, logger)
 
+
 @bot.command(r'/contact')
 async def contact(chat, match):
     await process_contact_command(chat, match, logger)
+
 
 @bot.command(r'/stop')
 async def stop(chat, match):
     await process_stop_command(chat, match, logger)
 
+
 @bot.default
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
 
+
 @bot.command(r'Эълон бермоқчиман')
 async def create_ad(chat, match):
     await chat.send_text(
-            'create ad ok!',
-            parse_mode='Markdown',
-            disable_web_page_preview=True)
+        'create ad ok!',
+        parse_mode='Markdown',
+        disable_web_page_preview=True)
 
-        
+
 @bot.command(r'Эълонларни кўрмоқчиман')
 async def create_ad(chat, match):
     await chat.send_text(
-            'view ads ok!',
-            parse_mode='Markdown',
-            disable_web_page_preview=True)
+        'view ads ok!',
+        parse_mode='Markdown',
+        disable_web_page_preview=True)
+
 
 @bot.command(r'Менюни кўрмоқчиман')
 async def create_ad(chat, match):
