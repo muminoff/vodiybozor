@@ -11,7 +11,7 @@ from asyncpg import create_pool as create_pg_pool
 from aioredis import create_pool as create_redis_pool
 
 # Aiobotocore
-from aiobotocore import get_session
+from aiobotocore import get_session as boto_session
 
 # Bot
 from bot import bot
@@ -48,7 +48,7 @@ async def make_redis_pool():
 async def make_s3_client(loop):
     aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
     aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    session = aiobotocore.get_session(loop=loop)
+    session = boto_session(loop=loop)
     return session.create_client(
             's3', region_name='us-east-1',
             aws_access_key_id=aws_access_key_id,

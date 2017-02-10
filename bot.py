@@ -1,108 +1,48 @@
 import os
 import logging
-import textwrap
+
+# Bot
 from aiotg import Bot
 
+# Commands
+from commands.start import process_start_command
+from commands.menu import process_menu_command
+from commands.rules import process_rules_command
+from commands.contact import process_contact_command
+from commands.stop import process_stop_command
+
 # Users
-from queries.users import user_exists
-from queries.users import insert_user
 from queries.users import deactivate_user
 from queries.users import get_admins
 
+# Variables
+api_token = os.environ.get('API_TOKEN')
+bot_name = os.environ.get('BOT_NAME')
 
-bot = Bot(
-    api_token=os.environ.get('API_TOKEN'),
-    name=os.environ.get('BOT_NAME'))
+# Bot
+bot = Bot(api_token=api_token, name=bot_name)
 
+# Logging
 logger = logging.getLogger('bot')
 logging.basicConfig(level=logging.DEBUG)
-
-text = lambda t: textwrap.dedent(t)
 
 
 @bot.command(r'/start')
 async def start(chat, match):
+    await process_start_command(chat, match, logger)
 
-    greeting = text('''
-    Ассалому алайкум {name}!
-    Водий бозорга хуш келибсиз.
+# @bot.command(r'/menu')
+# def menu(chat, match):
+#     return process_menu_command(chat, match, logger)
 
-    Бош менюга ўтиш учун /menu
-    Маълумотлар /info
-    Хизмат шартлари /eula
-    Админ билан боғланиш /contact
-    ''')
+# @bot.command(r'/rules')
+# def rules(chat, match):
+#     return process_rules_command(chat, match, logger)
 
-    await insert_user(chat.bot.pg_pool, chat.sender)
+# @bot.command(r'/contact')
+# def contact(chat, match):
+#     process_contact_command(chat, match, logger)
 
-    if await user_exists(chat.bot.pg_pool, chat.sender):
-        logger.info('User %s already exists', chat.sender)
-
-    await chat.send_text(greeting.format(name=chat.sender['first_name']))
-
-@bot.command(r'/menu')
-def menu(chat, match):
-    print(dir(chat))
-    info = text('''
-    Бош меню
-    ''')
-    logger.info('%s menu requested by', chat.sender)
-    return chat.send_text(info)
-
-@bot.command(r'/info')
-def info(chat, match):
-    info = text('''
-    Каналнинг қонун-қоидалари мавжуд ва админлар томонидан назорат қилинади.
-
-    Қуйидаги хатти ҳаракатлар мумкин эмас:
-
-    - бир кунда биттадан ортиқ эълон бериш;
-    - бир эълонни қайта- қайта ёзиш;
-    - эълонга алоқадор бўлмаган расм юклаш;
-    - эълонга алоқаси йўқ хабарлар ёзиш;
-    
-    каналда қизиқарли ушлаб туриши учун эълонларни маълум вақт қўйилмасли,
-
-    каналда эълонлар навбати бор
-
-    Баъзи турдаги эълонларни қўймасликга канални хаққи бор
-
-    Хизмат кўрсатиш эълонлари ёки такрорий эълонлар бўйича @musayev_i га мурожаат қилинг.
-    ''')
-    logger.info('%s info requested by', chat.sender)
-    return chat.send_text(info)
-
-@bot.command(r'/eula')
-def eula(chat, match):
-    info = text('''
-    Хизмат шартлари
-    ''')
-    logger.info('%s eula requested by', chat.sender)
-    return chat.send_text(info)
-
-@bot.command(r'/contact')
-def contact(chat, match):
-    info = text('''
-    Админ билан боғланиш
-    ''')
-    logger.info('%s contact requested by', chat.sender)
-    return chat.send_text(info)
-
-@bot.command(r'/stop')
-async def stop(chat, match):
-    farewell = text('''
-    Қизиқиш учун раҳмат {name}.
-    Каналимизни кузатишда давом этинг.
-    Канал манзили https://t.me/vodiybozor
-    ''')
-    await deactivate_user(chat.bot.pg_pool, chat.sender)
-    logger.info('%s deactivated', chat.sender)
-    await chat.send_text(farewell.format(name=chat.sender['first_name']), disable_web_page_preview=True)
-
-@bot.command(r'/admins')
-async def admins(chat, match):
-    # admins = await get_admins(chat.bot.pg_pool)
-    admins = map(lambda u: '@' + x, await get_admins(chat.bot.pg_pool))
-
-    for admin in admins:
-        await chat.send_text('@' + admin['username'])
+# @bot.command(r'/stop')
+# async def stop(chat, match):
+#     await process_stop_command(chat, match, logger)
