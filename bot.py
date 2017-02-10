@@ -27,22 +27,23 @@ logger = logging.getLogger('bot')
 logging.basicConfig(level=logging.DEBUG)
 
 
+@bot.default
 @bot.command(r'/start')
 async def start(chat, match):
     await process_start_command(chat, match, logger)
 
-# @bot.command(r'/menu')
-# def menu(chat, match):
-#     return process_menu_command(chat, match, logger)
+@bot.command(r'/menu')
+def menu(chat, match):
+    return process_menu_command(chat, match, logger)
 
-# @bot.command(r'/rules')
-# def rules(chat, match):
-#     return process_rules_command(chat, match, logger)
+@bot.command(r'/rules')
+def rules(chat, match):
+    return process_rules_command(chat, match, logger)
 
-# @bot.command(r'/contact')
-# def contact(chat, match):
-#     process_contact_command(chat, match, logger)
+@bot.command(r'/contact')
+def contact(chat, match):
+    process_contact_command(chat, match, logger)
 
-# @bot.command(r'/stop')
-# async def stop(chat, match):
-#     await process_stop_command(chat, match, logger)
+@bot.command(r'/stop')
+async def stop(chat, match):
+    await process_stop_command(chat, match, logger)
