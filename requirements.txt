@@ -2,3 +2,4 @@ aiotg
 asyncpg
 aioredis
 uvloop
+aiobotocore

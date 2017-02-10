@@ -101,7 +101,8 @@ async def stop(chat, match):
 
 @bot.command(r'/admins')
 async def admins(chat, match):
-    admins = await get_admins(chat.bot.pg_pool)
+    # admins = await get_admins(chat.bot.pg_pool)
+    admins = map(lambda u: '@' + x, await get_admins(chat.bot.pg_pool))
 
     for admin in admins:
         await chat.send_text('@' + admin['username'])
