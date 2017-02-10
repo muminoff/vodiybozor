@@ -11,10 +11,7 @@ from commands.menu import process_menu_command
 from commands.rules import process_rules_command
 from commands.contact import process_contact_command
 from commands.stop import process_stop_command
-
-# Users
-from queries.users import deactivate_user
-from queries.users import get_admins
+from commands.unknown import process_unknown_command
 
 # Variables
 api_token = os.environ.get('API_TOKEN')
@@ -39,11 +36,17 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
+@bot.command(r'/menu')
+async def menu(chat, match):
+    await process_menu_command(chat, match, logger)
+
+
 @bot.command(r'/rules')
 async def rules(chat, match):
     await process_rules_command(chat, match, logger)
 
 
+@bot.command(r'Админ керак')
 @bot.command(r'/contact')
 async def contact(chat, match):
     await process_contact_command(chat, match, logger)
@@ -55,8 +58,8 @@ async def stop(chat, match):
 
 
 @bot.default
-async def menu(chat, match):
-    await process_menu_command(chat, match, logger)
+async def unknown(chat, match):
+    await process_unknown_command(chat, match, logger)
 
 
 @bot.command(r'Эълон бермоқчиман')
