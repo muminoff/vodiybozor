@@ -54,9 +54,10 @@ async def create_sale_ad_command(chat, match, logger):
     Нима сотмоқчисиз?
     ''')
     keyboard = [
-        ['Авто-улов', 'Кўчмас-мулк'],
-        ['Маиший техника', 'Электроника'],
-        ['Уй-рўзғор буюмлари'],
+        [':car: Авто-улов', ':house: Кўчмас-мулк'],
+        [':tv: Маиший техника', ':door: Уй-рўзғор буюмлари'],
+        [':shirt: Кийим-кечак', ':bicyclist: Спорт анжомлари'],
+        [':iphone: Телефон', ''],
     ]
     reply_keyboard_markup = {
         'keyboard': keyboard,
