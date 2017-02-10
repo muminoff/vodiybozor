@@ -21,7 +21,7 @@ bot_name = os.environ.get('BOT_NAME')
 bot = Bot(api_token=api_token, name=bot_name)
 
 # Channel
-channel = bot.channel(os.environ.get('CHANNEL_NAME', 'VodiyBozorTestChannel'))
+channel = bot.channel(os.environ.get('CHANNEL_NAME', '@VodiyBozorTestChannel'))
 
 # Logging
 logger = logging.getLogger('bot')
