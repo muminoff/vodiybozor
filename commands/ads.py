@@ -1,13 +1,27 @@
 # Helpers
 from utils.helpers import format_text
 
+# json
+import json
 
-def process_ads_command(chat, match, logger):
+
+async def process_ads_command(chat, match, logger):
     info = format_text('''
-    {name}, қайси бўлимдаги эълонларни кўрмоқчисиз?
+    {name}, эълон бермоқчимисиз ёки эълонларни кўрмоқчимисиз?
     ''')
+    keyboard = [
+        ['Эълон бермоқчиман', 'Эълонларни кўрмоқчиман'],
+        ['Менюни кўрмоқчиман'],
+    ]
+    reply_keyboard_markup = {
+        'keyboard': keyboard,
+        'resize_keyboard': True,
+        'one_time_keyboard': True
+    }
+
     logger.info('%s ads requested by', chat.sender)
-    return chat.send_text(
+    await chat.send_text(
             info.format(name=chat.sender['first_name']),
             parse_mode='Markdown',
-            disable_web_page_preview=True)
+            disable_web_page_preview=True,
+            reply_markup=json.dumps(reply_keyboard_markup))
