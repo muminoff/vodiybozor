@@ -6,6 +6,7 @@ from aiotg import Bot
 
 # Commands
 from commands.start import process_start_command
+from commands.ads import process_ads_command
 from commands.menu import process_menu_command
 from commands.rules import process_rules_command
 from commands.contact import process_contact_command
