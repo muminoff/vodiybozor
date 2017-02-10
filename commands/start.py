@@ -11,10 +11,10 @@ async def process_start_command(chat, match, logger):
     Ассалому алайкум {name}!
     Водий бозорга хуш келибсиз.
 
-    Бош менюга ўтиш учун /menu
-    Маълумотлар /info
-    Хизмат шартлари /eula
-    Админ билан боғланиш /contact
+    /menu - менюни чақириш
+    /rules - канал қоидалари
+    /contact - админлар билан боғланиш
+    /stop - ботни тўхтатиш
     ''')
 
     await insert_user(chat.bot.pg_pool, chat.sender)
