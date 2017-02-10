@@ -36,6 +36,7 @@ def menu(chat, match):
     return process_menu_command(chat, match, logger)
 
 @bot.command(r'/ads')
+def ads(chat, match):
     return process_ads_command(chat, match, logger)
 
 @bot.command(r'/rules')
