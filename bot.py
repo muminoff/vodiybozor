@@ -64,7 +64,17 @@ async def stop(chat, match):
 @bot.default
 async def unknown(chat, match):
     await process_unknown_command(chat, match, logger)
-    await channel.send_text('test')
+    test = format_text('''
+    *СОТИЛАДИ*
+
+    *Galaxy* *S5*
+    *Нархи:* 300 y.e.
+    *Ҳолати:* аъло
+
+    📞 [Боғланиш](https://t.me/muminofff)
+    ''')
+    logger.info('%s unkknown requested by', chat.sender)
+    await channel.send_text(test, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 @bot.command(r'elon bor')
