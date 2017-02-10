@@ -42,6 +42,7 @@ def rules(chat, match):
 
 @bot.command(r'/contact')
 def contact(chat, match):
+    logger.info('-------contact-------')
     process_contact_command(chat, match, logger)
 
 @bot.command(r'/stop')
