@@ -10,11 +10,6 @@ async def process_start_command(chat, match, logger):
     greeting = format_text('''
     Ассалому алайкум {name}!
     Водий бозорга хуш келибсиз.
-
-    /menu - менюни чақириш
-    /rules - канал қоидалари
-    /contact - админлар билан боғланиш
-    /stop - ботни тўхтатиш
     ''')
 
     await insert_user(chat.bot.pg_pool, chat.sender)
