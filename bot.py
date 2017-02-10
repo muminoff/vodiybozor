@@ -4,15 +4,6 @@ import logging
 # Bot
 from aiotg import Bot
 
-# Commands
-from commands.start import process_start_command
-from commands.ads import process_ads_command
-from commands.menu import process_menu_command
-from commands.rules import process_rules_command
-from commands.contact import process_contact_command
-from commands.stop import process_stop_command
-from commands.unknown import process_unknown_command
-
 # Variables
 api_token = os.environ.get('API_TOKEN')
 bot_name = os.environ.get('BOT_NAME')
@@ -27,6 +18,12 @@ channel = bot.channel(os.environ.get('CHANNEL_NAME', '@VodiyBozorTest'))
 logger = logging.getLogger('bot')
 logging.basicConfig(level=logging.DEBUG)
 
+# Commands
+from commands.basic import (process_start_command, process_menu_command,
+                            process_rules_command, process_contact_command,
+                            process_stop_command, process_unknown_command)
+from commands.ads import (process_ads_command, create_ad_command)
+
 
 @bot.command(r'/start')
 async def start(chat, match):
@@ -39,6 +36,7 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
+@bot.command(r'Менюни кўрмоқчиман')
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
@@ -49,8 +47,10 @@ async def rules(chat, match):
     await process_rules_command(chat, match, logger)
 
 
-@bot.command(r'Админ керак')
 @bot.command(r'/contact')
+@bot.command(r'Админ керак')
+@bot.command(r'admin kerak')
+@bot.command(r'admin')
 async def contact(chat, match):
     await process_contact_command(chat, match, logger)
 
@@ -68,20 +68,12 @@ async def unknown(chat, match):
 
 @bot.command(r'Эълон бермоқчиман')
 async def create_ad(chat, match):
-    await chat.send_text(
-        'create ad ok!',
-        parse_mode='Markdown',
-        disable_web_page_preview=True)
+    await create_ad_command(chat, match, logger)
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')
-async def create_ad(chat, match):
+async def view_ads(chat, match):
     await chat.send_text(
         'view ads ok!',
         parse_mode='Markdown',
         disable_web_page_preview=True)
-
-
-@bot.command(r'Менюни кўрмоқчиман')
-async def create_ad(chat, match):
-    await process_menu_command(chat, match, logger)
