@@ -3,7 +3,6 @@ from utils.helpers import format_text
 
 
 async def process_menu_command(chat, match, logger):
-    print(dir(chat))
     info = format_text('''
     *МЕНЮ*
 
