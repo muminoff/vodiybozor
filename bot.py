@@ -20,6 +20,9 @@ bot_name = os.environ.get('BOT_NAME')
 # Bot
 bot = Bot(api_token=api_token, name=bot_name)
 
+# Channel
+channel = bot.cannel(os.environ.get('CHANNEL_NAME', 'VodiyBozorTestChannel'))
+
 # Logging
 logger = logging.getLogger('bot')
 logging.basicConfig(level=logging.DEBUG)
@@ -60,6 +63,7 @@ async def stop(chat, match):
 @bot.default
 async def unknown(chat, match):
     await process_unknown_command(chat, match, logger)
+    await channel.send_text('test')
 
 
 @bot.command(r'Эълон бермоқчиман')
