@@ -68,7 +68,7 @@ async def stop(chat, match):
 @bot.default
 async def unknown(chat, match):
     await process_unknown_command(chat, match, logger)
-    test = format_text('''
+    caption = format_text('''
     *СОТИЛАДИ*
 
     *Galaxy* *S5*
@@ -78,7 +78,9 @@ async def unknown(chat, match):
     📞 [Боғланиш](https://t.me/muminofff)
     ''')
     logger.info('%s unkknown requested by', chat.sender)
-    await channel.send_text(test, parse_mode='Markdown', disable_web_page_preview=True)
+    await channel.send_photo(
+            photo='http://cdn.ndtv.com/tech/samsung_galaxy_s5_blue_screen.jpg?output-quality=80&output-format=jpg',
+            caption=caption, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 @bot.command(r'elon bor')
