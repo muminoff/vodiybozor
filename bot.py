@@ -1,5 +1,9 @@
+# Misc
 import os
 import logging
+
+# Helpers
+from utils.helpers import format_text
 
 # Bot
 from aiotg import Bot
