@@ -71,3 +71,25 @@ async def create_sale_ad_command(chat, match, logger):
         parse_mode='Markdown',
         disable_web_page_preview=True,
         reply_markup=json.dumps(reply_keyboard_markup))
+
+
+async def create_sale_ad_command(chat, match, logger):
+    question = format_text('''
+    Авто-улов ҳақида қисқа ва лўнда маълумот беринг.
+    
+    Эълон бундай форматда қабул қилинади, вергул билан ажратиб ёзинг:
+    ```
+    Номи, йили, пробег, ҳолати, нархи, телефон рақам
+    ```
+
+    Масалан:
+    ```
+    Lacetti, 2015, 35000, янги, 7000, +998931234567
+    ```
+    ''')
+
+    logger.info('Vehicle create ad requested by %s', chat.sender)
+    await chat.send_text(
+        question,
+        parse_mode='Markdown',
+        disable_web_page_preview=True)

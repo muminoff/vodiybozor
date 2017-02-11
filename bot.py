@@ -81,17 +81,19 @@ async def unknown(chat, match):
             caption=caption)
 
 
-@bot.command(r'elon bor')
-@bot.command(r'elon bermoqchiman')
 @bot.command(r'Эълон бермоқчиман')
 async def create_ad(chat, match):
     await create_ad_command(chat, match, logger)
 
 
-@bot.command(r'sotmoqchiman')
 @bot.command(r'Сотмоқчиман')
-async def create_ad(chat, match):
+async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
+
+
+@bot.command(r'🚗 Авто-улов')
+async def create_sale_ad_vehicle(chat, match):
+    await create_sale_ad_vehicle_command(chat, match, logger)
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')
