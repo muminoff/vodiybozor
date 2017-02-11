@@ -12,6 +12,13 @@ import json
 
 
 async def process_start_command(chat, match, logger):
+    has_last_name = lambda u: u.get('last_name', '') != ''
+    first_name = chat.sender.get('first_name')
+    fullname = first_name
+
+    if has_last_name(chat.sender):
+        fullname = first_name + ' ' + chat.sender.get('last_name')
+
     greeting = format_text('''
     Ассалому алайкум {name}!
     Водий бозорга хуш келибсиз.
@@ -22,7 +29,7 @@ async def process_start_command(chat, match, logger):
     if await user_exists(chat.bot.pg_pool, chat.sender):
         logger.info('User %s already exists', chat.sender)
 
-    await chat.send_text(greeting.format(name=chat.sender['first_name']))
+    await chat.send_text(greeting.format(name=fullname))
 
 
 async def process_menu_command(chat, match, logger):
