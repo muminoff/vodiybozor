@@ -73,7 +73,7 @@ async def create_sale_ad_command(chat, match, logger):
         reply_markup=json.dumps(reply_keyboard_markup))
 
 
-async def create_sale_ad_command(chat, match, logger):
+async def create_sale_ad_vehicle_command(chat, match, logger):
     question = format_text('''
     Авто-улов ҳақида қисқа ва лўнда маълумот беринг.
     

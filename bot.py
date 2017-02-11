@@ -27,7 +27,7 @@ from commands.basic import (process_start_command, process_menu_command,
                             process_rules_command, process_contact_command,
                             process_stop_command, process_unknown_command)
 from commands.ads import (process_ads_command, create_ad_command,
-                          create_sale_ad_command)
+                          create_sale_ad_command, create_sale_ad_vehicle_command)
 
 
 @bot.command(r'/start')
