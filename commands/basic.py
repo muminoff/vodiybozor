@@ -61,8 +61,7 @@ async def process_contact_command(chat, match, logger):
     for admin in await get_admins(chat.bot.pg_pool):
         admins.append('@' + admin['username'])
 
-    admins_text = '\n'.join(admins)
-    await chat.send_text(contacts.format(admins=admins_text), parse_mode='Markdown', disable_web_page_preview=True)
+    await chat.send_text(contacts.format(admins=admins), parse_mode='Markdown', disable_web_page_preview=True)
 
 
 async def process_stop_command(chat, match, logger):
