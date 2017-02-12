@@ -126,7 +126,29 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger, channel):
     ad_dict = dict(zip(keys, values))
     ad_text = ad_template.format(**ad_dict)
 
-    await channel.send_text(
-        ad_text,
+    # Post to channel
+    # await channel.send_text(
+    #     ad_text,
+    #     parse_mode='Markdown',
+    #     disable_web_page_preview=True)
+
+    question = format_text('''
+    Эълон ёзиб олинди.
+
+    Расми борми йўқми?
+    ''')
+    keyboard = [
+        ['✅ Расм бор', '❌ Расм йўқ'],
+    ]
+    reply_keyboard_markup = {
+        'keyboard': keyboard,
+        'resize_keyboard': True,
+        'one_time_keyboard': True
+    }
+
+    logger.info('Vehicle ad accepted from %s', chat.sender)
+    await chat.send_text(
+        question,
         parse_mode='Markdown',
-        disable_web_page_preview=True)
+        disable_web_page_preview=True,
+        reply_markup=json.dumps(reply_keyboard_markup))
