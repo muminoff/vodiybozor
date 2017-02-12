@@ -100,3 +100,30 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
         question,
         parse_mode='Markdown',
         disable_web_page_preview=True)
+
+
+async def create_sale_ad_vehicle_accept_command(chat, match, logger):
+    logger.info('Vehicle create ad requested by %s', chat.sender)
+
+    ad_template = format_text('''
+    *{name}* сотилади!
+    *Йили:* {year}
+    *Пробег:* {mileage}
+    *Ҳолати:* {status}
+    *Нархи:* {price}
+    *Боғланиш:* {contact}
+
+    [Водий бозор](https://t.me/vodiybozor)
+    ''')
+
+    text = chat.message['text']
+    keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
+    __, values = text.split(':')
+    values = values.strip(' ').split(',')
+    ad_dict = dict(zip(keys, values))
+    ad_text = ad_template.format(**ad_dict)
+
+    await chat.send_text(
+        ad_text,
+        parse_mode='Markdown',
+        disable_web_page_preview=True)

@@ -27,7 +27,8 @@ from commands.basic import (process_start_command, process_menu_command,
                             process_rules_command, process_contact_command,
                             process_stop_command, process_unknown_command)
 from commands.ads import (process_ads_command, create_ad_command,
-                          create_sale_ad_command, create_sale_ad_vehicle_command)
+                          create_sale_ad_command, create_sale_ad_vehicle_command,
+                          create_sale_ad_vehicle_accept_command)
 
 
 @bot.command(r'/start')
@@ -100,18 +101,8 @@ async def create_sale_ad_vehicle(chat, match):
 
 # @bot.command(r'🚗 Авто-улов')
 @bot.command(r'Авто: (,\s*\d+)*')
-async def create_sale_ad_vehicle(chat, match):
-    text = chat.message['text']
-    keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
-    __, values = text.split(':')
-    values = values.strip(' ').split(',')
-    ad = dict(zip(keys, values))
-    print('----')
-    print(ad)
-    await chat.send_text(
-        'vehicle ad ok!',
-        parse_mode='Markdown',
-        disable_web_page_preview=True)
+async def create_sale_ad_vehicle_accept(chat, match):
+    await create_sale_ad_vehicle_accept_command(chat, match, logger)
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')
