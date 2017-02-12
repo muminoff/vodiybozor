@@ -105,7 +105,7 @@ async def create_sale_ad_vehicle(chat, match):
     keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
     __, values = text.split(':')
     values = values.strip(' ').split(',')
-    ad = dict(zip(keys, values.split(',')))
+    ad = dict(zip(keys, values))
     print('----')
     print(ad)
     await chat.send_text(
