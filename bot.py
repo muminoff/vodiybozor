@@ -53,7 +53,8 @@ async def rules(chat, match):
 
 
 @bot.command(r'/contact')
-@bot.command(r'Админ керак')
+@bot.command(r'админ керак')
+@bot.command(r'админ')
 @bot.command(r'admin kerak')
 @bot.command(r'admin')
 async def contact(chat, match):
@@ -95,6 +96,15 @@ async def create_sale_ad(chat, match):
 @bot.command(r'Авто-улов')
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
+
+
+# @bot.command(r'🚗 Авто-улов')
+@bot.command(r'Авто: (,\s*\d+)*')
+async def create_sale_ad_vehicle(chat, match):
+    await chat.send_text(
+        'vehicle ad ok!',
+        parse_mode='Markdown',
+        disable_web_page_preview=True)
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')
