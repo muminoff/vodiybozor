@@ -79,11 +79,13 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
     
     Эълон бундай форматда қабул қилинади, вергул билан ажратиб ёзинг:
     ```
-    Авто: Номи, йили, пробег, ҳолати, нархи, телефон рақам
+    Авто: Номи, йили, пробег, ҳолати, нархи, манзил, телефон рақам (ёки телеграм)
     ```
     Масалан:
     ```
     Авто: Lacetti, 2015, 35000, яхши, 7000, +998931234567
+    ёки
+    Авто: Nexia DOHC, 2009, 145000, яхши, 5000, Андижон, @foobar
     ```
     ''')
 
@@ -102,7 +104,7 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
         disable_web_page_preview=True)
 
 
-async def create_sale_ad_vehicle_accept_command(chat, match, logger):
+async def create_sale_ad_vehicle_accept_command(chat, match, logger, channel):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
     ad_template = format_text('''
@@ -111,19 +113,20 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     *Пробег:* {mileage}
     *Ҳолати:* {status}
     *Нархи:* {price}
+    *Манзил:* {location}
     *Боғланиш:* {contact}
 
     [Водий бозор](https://t.me/vodiybozor)
     ''')
 
     text = chat.message['text']
-    keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
+    keys = ['name', 'year', 'mileage', 'status', 'price', 'location', 'contact']
     __, values = text.split(':')
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
     ad_text = ad_template.format(**ad_dict)
 
-    await chat.send_text(
+    await channel.send_text(
         ad_text,
         parse_mode='Markdown',
         disable_web_page_preview=True)
