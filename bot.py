@@ -30,6 +30,8 @@ from commands.ads import (process_ads_command, create_ad_command,
                           create_sale_ad_command, create_sale_ad_vehicle_command,
                           create_sale_ad_vehicle_accept_command)
 
+from commands.ads import (attach_image_to_ad_command, attach_no_image_to_ad_command)
+
 
 @bot.command(r'/start')
 async def start(chat, match):
