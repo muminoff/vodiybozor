@@ -91,7 +91,8 @@ async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
 
-@bot.command(r'🚗 Авто-улов')
+# @bot.command(r'🚗 Авто-улов')
+@bot.command(r'Авто-улов')
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
