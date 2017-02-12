@@ -123,3 +123,9 @@ async def view_ads(chat, match):
         'view ads ok!',
         parse_mode='Markdown',
         disable_web_page_preview=True)
+
+
+@bot.handle("photo")
+async def get_photo(chat, match):
+    logger.info("Getting photo from %s", chat.sender)
+    logger.info(chat.message)
