@@ -87,6 +87,14 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
     ```
     ''')
 
+#     #Galaxy #Note 3 sotiladi
+#     :m: Xolati yaxshi
+#     :package:Коropka dakumenti bor
+#     :moneybag:800.000 so'm
+#     :phone:+998914898109
+#     :triangular_flag_on_post:Andijon
+#     Telegram:point_right: @Mamatxonov95
+
     logger.info('Vehicle create ad requested by %s', chat.sender)
     await chat.send_text(
         question,
