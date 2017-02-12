@@ -101,6 +101,8 @@ async def create_sale_ad_vehicle(chat, match):
 # @bot.command(r'🚗 Авто-улов')
 @bot.command(r'Авто: (,\s*\d+)*')
 async def create_sale_ad_vehicle(chat, match):
+    print('----')
+    print(chat.message['text'])
     await chat.send_text(
         'vehicle ad ok!',
         parse_mode='Markdown',
