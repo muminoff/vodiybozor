@@ -102,7 +102,17 @@ async def create_sale_ad_vehicle(chat, match):
 # @bot.command(r'🚗 Авто-улов')
 @bot.command(r'Авто: (,\s*\d+)*')
 async def create_sale_ad_vehicle_accept(chat, match):
-    await create_sale_ad_vehicle_accept_command(chat, match, logger, channel)
+    await create_sale_ad_vehicle_accept_command(chat, match, logger)
+
+
+@bot.command(r'✅ Расм бор')
+async def attach_image_to_ad(chat, match):
+    await attach_image_to_ad_command(chat, match, logger)
+
+
+@bot.command(r'❌ Расм йўқ')
+async def attach_no_image_to_ad(chat, match):
+    await attach_no_image_to_ad_command(chat, match, logger)
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')

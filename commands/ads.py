@@ -83,8 +83,9 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
     ```
     Масалан:
     ```
-    Авто: Lacetti, 2015, 35000, яхши, 7000, +998931234567
-    ёки
+    Авто: Lacetti, 2015, 35000, яхши, 7000, Андижон, +998931234567
+    ```
+    ```
     Авто: Nexia DOHC, 2009, 145000, яхши, 5000, Андижон, @foobar
     ```
     ''')
@@ -104,7 +105,7 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
         disable_web_page_preview=True)
 
 
-async def create_sale_ad_vehicle_accept_command(chat, match, logger, channel):
+async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
     ad_template = format_text('''
@@ -152,3 +153,27 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger, channel):
         parse_mode='Markdown',
         disable_web_page_preview=True,
         reply_markup=json.dumps(reply_keyboard_markup))
+
+
+async def attach_image_to_ad_command(chat, match, logger):
+    ask_image = format_text('''
+    Расм юборинг.
+    ''')
+    logger.info('Image file sent by %s', chat.sender)
+    await chat.send_text(ask_image)
+
+
+async def attach_no_image_to_ad_command(chat, match, logger):
+    ok_text = format_text('''
+    Тушунарли.
+    ''')
+    logger.info('%s says no image', chat.sender)
+    await chat.send_text(ok_text)
+    await send_ad_acceptance_message(chat, match, logger)
+
+async def send_ad_acceptance_message(chat, match, logger):
+    accepted_text = format_text('''
+    Эълон қабул қилинди ва админларга юборилди.
+    Тез орада каналга чоп этиб, бу ҳақда сизга хабар берамиз.
+    ''')
+    await chat.send_text(accepted_text)
