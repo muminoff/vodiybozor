@@ -6,7 +6,7 @@ except ImportError:
 
 # Download file
 from aiohttp import web
-from pathlib import PurePath 
+from pathlib import PurePath
 
 # Wand
 from wand.image import Image
@@ -33,8 +33,8 @@ async def process_photo(chat, match, logger):
             with Image(file=fg) as fg_img:
                 bg_img.composite(
                     fg_img,
-                    left=int((bg_img.width-fg_img.width) / 2),
-                    top=bg_img.height-fg_img.height)
+                    left=int((bg_img.width - fg_img.width) / 2),
+                    top=bg_img.height - fg_img.height - fg_img.height)
                 bg_img.save(filename=new_filename)
             fg.close()
         bg.close()
@@ -46,3 +46,4 @@ async def process_photo(chat, match, logger):
     await chat.send_chat_action('upload_photo')
     url = 'https://s3.amazonaws.com/vodiybozor/{0}'.format(new_filename)
     await chat.send_photo(url)
+    return url

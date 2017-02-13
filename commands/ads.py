@@ -113,7 +113,8 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
     with await chat.bot.redis_pool as conn:
-        key = '{0}:{1}'.format(chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+        key = '{0}:{1}'.format(
+            chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
         # if await conn.exists(key):
         #     denied = format_text('''
         #     {name}, сиз авто-улов ҳақида бундан олдин ҳам эълон бергандиз. Ўша эълон каналга чиқарилгандан сўнг бошқа эълон ёзишингиз мумкин.
@@ -144,7 +145,8 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     # Auto-ulov id hardcoding
     # '9a67d4d9-b283-4a30-9d84-904f66cb2a56'
     with await chat.bot.redis_pool as conn:
-        key = '{0}:{1}'.format(chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+        key = '{0}:{1}'.format(
+            chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
         await conn.hmset_dict(key, ad_dict)
 
     question = format_text('''
