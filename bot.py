@@ -128,4 +128,5 @@ async def view_ads(chat, match):
 @bot.handle("photo")
 async def get_photo(chat, match):
     logger.info("Getting photo from %s", chat.sender)
-    logger.info(chat.message['photo'])
+    file_id = chat.message['photo'][1]['file_id']
+    logger.info('Got file %s', file_id)
