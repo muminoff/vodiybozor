@@ -34,6 +34,7 @@ from commands.ads import (attach_image_to_ad_command,
                           attach_no_image_to_ad_command)
 
 from commands.photos import process_photo
+from commands.contacts import process_contact
 
 
 @bot.command(r'/start')
@@ -131,3 +132,8 @@ async def view_ads(chat, match):
 @bot.handle("photo")
 async def get_photo(chat, match):
     await process_photo(chat, match, logger)
+
+
+@bot.handle("contact")
+async def get_contact(chat, match):
+    await process_contact(chat, match, logger)
