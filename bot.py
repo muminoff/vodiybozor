@@ -132,6 +132,6 @@ async def get_photo(chat, match):
     logger.info('Got file_id %s', file_id)
     file_obj = await chat.bot.get_file(file_id)
     file_path = file_obj.get('file_path')
-    fff = file_obj.download_file(file_path)
+    fff = chat.bot.download_file(file_path)
     logger.info('---------')
     logger.info(fff)
