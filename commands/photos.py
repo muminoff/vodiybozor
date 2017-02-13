@@ -12,6 +12,9 @@ from pathlib import PurePath
 from wand.image import Image
 from wand.display import display
 
+# Misc
+import os
+
 
 async def process_photo(chat, match, logger):
     file_id = chat.message['photo'][1]['file_id']
@@ -35,7 +38,6 @@ async def process_photo(chat, match, logger):
                     fg_img,
                     left=int((bg_img.width - fg_img.width) / 2),
                     top=int((bg_img.height - fg_img.height) - (fg_img.height / 2)))
-                bg_img.liquid_rescale(612, 612)
                 bg_img.save(filename=new_filename)
             fg.close()
         bg.close()
@@ -47,4 +49,5 @@ async def process_photo(chat, match, logger):
     await chat.send_chat_action('upload_photo')
     url = 'https://s3.amazonaws.com/vodiybozor/{0}'.format(new_filename)
     await chat.send_photo(url)
+    os.remove(new_filename)
     return url
