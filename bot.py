@@ -130,26 +130,3 @@ async def view_ads(chat, match):
 @bot.handle("photo")
 async def get_photo(chat, match):
     await process_photo(chat, match, logger)
-
-from wand.image import Image
-from wand.display import display
-@bot.command("/sardor")
-async def wand(chat, match):
-    with Image(filename='sardor.jpg') as bg_img:
-        with Image(filename='footer.png') as fg_img:
-            # bg_img.composite(
-            #     fg_img,
-            #     left=(bg_img.height-fg_img.height)-100,
-            #     top=bg_img.width-fg_img.width)
-            bg_img.composite(
-                fg_img,
-                left=int((bg_img.width-fg_img.width) / 2),
-                top=bg_img.height-fg_img.height)
-            bg_img.save(filename='aa124124.jpg')
-
-            # bg_img.display()
-            # bucket = 'vodiybozor'
-            # await chat.bot.s3_client.put_object(Bucket=bucket, Key=new_filename, Body=bg_img.read())
-        # fg.close()
-        # display(bg_img)
-    # bg.close()
