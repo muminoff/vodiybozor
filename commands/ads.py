@@ -33,7 +33,7 @@ async def process_ads_command(chat, match, logger):
 
 async def create_ad_command(chat, match, logger):
     question = format_text('''
-    Жуда яхши. Қандай эълон бермоқчисиз?
+    {ok} Қандай эълон бермоқчисиз?
     ''')
     keyboard = [
         ['Сотмоқчиман', 'Олмоқчиман'],
@@ -47,7 +47,7 @@ async def create_ad_command(chat, match, logger):
 
     logger.info('%s ads requested by', chat.sender)
     await chat.send_text(
-        question,
+        question.format(ok=random.choice(ok_text)),
         parse_mode='Markdown',
         disable_web_page_preview=True,
         reply_markup=json.dumps(reply_keyboard_markup))

@@ -123,10 +123,11 @@ async def attach_no_image_to_ad(chat, match):
 
 @bot.command(r'Эълонларни кўрмоқчиман')
 async def view_ads(chat, match):
-    await chat.send_text(
-        'view ads ok!',
-        parse_mode='Markdown',
-        disable_web_page_preview=True)
+    info = format_text('''
+    [Канал манзили](https://t.me/vodiybozor)
+    ''')
+    logger.info('View ads requested by %s', chat.sender)
+    await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 @bot.handle("photo")
