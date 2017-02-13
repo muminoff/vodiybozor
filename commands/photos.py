@@ -22,6 +22,7 @@ async def process_photo(chat, match, logger):
     file_path = file["file_path"]
     p = PurePath(file_path)
     new_filename = '{0}{1}'.format(file_id, p.suffix)
+    await chat.send_chat_action('upload_photo')
 
     async with chat.bot.download_file(file_path) as r:
         bg_url = r.url
