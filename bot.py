@@ -32,6 +32,8 @@ from commands.ads import (process_ads_command, create_ad_command,
 
 from commands.ads import (attach_image_to_ad_command, attach_no_image_to_ad_command)
 
+from commands.photos import process_photo
+
 
 @bot.command(r'/start')
 async def start(chat, match):
@@ -127,11 +129,27 @@ async def view_ads(chat, match):
 
 @bot.handle("photo")
 async def get_photo(chat, match):
-    logger.info("Getting photo from %s", chat.sender)
-    file_id = chat.message['photo'][1]['file_id']
-    logger.info('Got file_id %s', file_id)
-    file_obj = await chat.bot.get_file(file_id)
-    file_path = file_obj.get('file_path')
-    fff = chat.bot.download_file(file_path)
-    logger.info('---------')
-    logger.info(fff)
+    await process_photo(chat, match, logger)
+
+from wand.image import Image
+from wand.display import display
+@bot.command("/sardor")
+async def wand(chat, match):
+    with Image(filename='sardor.jpg') as bg_img:
+        with Image(filename='footer.png') as fg_img:
+            # bg_img.composite(
+            #     fg_img,
+            #     left=(bg_img.height-fg_img.height)-100,
+            #     top=bg_img.width-fg_img.width)
+            bg_img.composite(
+                fg_img,
+                left=int((bg_img.width-fg_img.width) / 2),
+                top=bg_img.height-fg_img.height)
+            bg_img.save(filename='aa124124.jpg')
+
+            # bg_img.display()
+            # bucket = 'vodiybozor'
+            # await chat.bot.s3_client.put_object(Bucket=bucket, Key=new_filename, Body=bg_img.read())
+        # fg.close()
+        # display(bg_img)
+    # bg.close()

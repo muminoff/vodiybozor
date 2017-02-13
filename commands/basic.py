@@ -36,6 +36,7 @@ async def process_menu_command(chat, match, logger):
     *МЕНЮ*
 
     /ads - эълонлар
+    /sub - обуна
     /rules - канал қоидалари
     /contact - админлар билан боғланиш
     /stop - ботни тўхтатиш
@@ -48,10 +49,12 @@ async def process_menu_command(chat, match, logger):
 
 async def process_rules_command(chat, match, logger):
     info = format_text('''
-    Хизмат шартлари
+    *ХИЗМАТ* *ШАРТЛАРИ* *ВА* *ҚОИДАЛАР*
+
+    1. Бир кунда бир тур бўйича биттадан ортиқ эълон бериш мумкин эмас.
     ''')
     logger.info('%s eula requested by', chat.sender)
-    await chat.send_text(info)
+    await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 async def process_contact_command(chat, match, logger):

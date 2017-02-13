@@ -1,8 +1,12 @@
 # Helpers
 from utils.helpers import format_text
 
-# json
+# Misc
+import random
 import json
+
+# Corpus
+from corpus.ok import text as ok_text
 
 
 async def process_ads_command(chat, match, logger):
@@ -108,29 +112,40 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
 async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
-    ad_template = format_text('''
-    *{name}* сотилади!
-    *Йили:* {year}
-    *Пробег:* {mileage}
-    *Ҳолати:* {status}
-    *Нархи:* {price}
-    *Мурожаат учун:* {contact}
+    with await chat.bot.redis_pool as conn:
+        key = '{0}:{1}'.format(chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+        # if await conn.exists(key):
+        #     denied = format_text('''
+        #     {name}, сиз авто-улов ҳақида бундан олдин ҳам эълон бергандиз. Ўша эълон каналга чиқарилгандан сўнг бошқа эълон ёзишингиз мумкин.
 
-    [Водий бозор](https://t.me/vodiybozor)
-    ''')
+        #     Қоидалар бу ерда /rules.
+        #     ''')
+        #     await chat.send_text(denied.format(name=chat.sender['first_name']))
+        #     return
+
+    # ad_template = format_text('''
+    # *{name}* сотилади!
+    # *Йили:* {year}
+    # *Пробег:* {mileage}
+    # *Ҳолати:* {status}
+    # *Нархи:* {price}
+    # *Мурожаат учун:* {contact}
+
+    # [Водий бозор](https://t.me/vodiybozor)
+    # ''')
 
     text = chat.message['text']
     keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
     __, values = text.split(':')
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
-    ad_text = ad_template.format(**ad_dict)
+    # ad_text = ad_template.format(**ad_dict)
 
-    # Post to channel
-    # await channel.send_text(
-    #     ad_text,
-    #     parse_mode='Markdown',
-    #     disable_web_page_preview=True)
+    # Auto-ulov id hardcoding
+    # '9a67d4d9-b283-4a30-9d84-904f66cb2a56'
+    with await chat.bot.redis_pool as conn:
+        key = '{0}:{1}'.format(chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+        await conn.hmset_dict(key, ad_dict)
 
     question = format_text('''
     Эълон ёзиб олинди.
@@ -163,11 +178,13 @@ async def attach_image_to_ad_command(chat, match, logger):
 
 
 async def attach_no_image_to_ad_command(chat, match, logger):
-    ok_text = format_text('''
-    Тушунарли.
+    text = format_text('''
+    {ok}
     ''')
     logger.info('%s says no image', chat.sender)
-    await chat.send_text(ok_text)
+    await chat.send_chat_action('typing')
+    await chat.send_text(text.format(ok=random.choice(ok_text)))
+    await chat.send_chat_action('typing')
     await send_ad_acceptance_message(chat, match, logger)
 
 async def send_ad_acceptance_message(chat, match, logger):
