@@ -3,3 +3,4 @@ asyncpg
 aioredis
 uvloop
 aiobotocore
+Wand==0.4.4
