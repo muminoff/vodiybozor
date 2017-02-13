@@ -34,7 +34,7 @@ async def process_photo(chat, match, logger):
                 bg_img.composite(
                     fg_img,
                     left=int((bg_img.width - fg_img.width) / 2),
-                    top=bg_img.height - fg_img.height - fg_img.height)
+                    top=int((bg_img.height - fg_img.height) - fg_img.height))
                 bg_img.save(filename=new_filename)
             fg.close()
         bg.close()
