@@ -79,28 +79,19 @@ async def create_sale_ad_command(chat, match, logger):
 
 async def create_sale_ad_vehicle_command(chat, match, logger):
     question = format_text('''
-    Авто-улов ҳақида қисқа ва лўнда маълумот беринг.
+    Авто-улов ҳақида қисқа маълумот беринг.
     
-    Эълон бундай форматда қабул қилинади, вергул билан ажратиб ёзинг:
+    Эълонни бундай форматда вергул билан ажратиб ёзинг:
     ```
-    Авто: Номи, йили, пробег, ҳолати, нархи, телефон рақам (ёки телеграм)
+    Авто: Номи, йили, пробег, ҳолати, нархи, телефон рақам
     ```
     Масалан:
     ```
     Авто: Lacetti, 2015, 35000, яхши, 7000, +998931234567
     ```
-    ```
-    Авто: Nexia DOHC, 2009, 145000, яхши, 5000, @foobar
-    ```
-    ''')
 
-#     #Galaxy #Note 3 sotiladi
-#     :m: Xolati yaxshi
-#     :package:Коropka dakumenti bor
-#     :moneybag:800.000 so'm
-#     :phone:+998914898109
-#     :triangular_flag_on_post:Andijon
-#     Telegram:point_right: @Mamatxonov95
+    Бошига `Авто:` сўзини қўшиш эсдан чиқмасин.
+    ''')
 
     logger.info('Vehicle create ad requested by %s', chat.sender)
     await chat.send_text(
