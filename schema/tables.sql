@@ -72,6 +72,8 @@ create table if not exists ads (
 /* --------- */
 create index closed_ads_idx on ads (is_closed) where (is_closed=true);
 create index published_ads_idx on ads (is_published) where (is_published=true);
+create index ads_data_name_idx on ads using gin (((data -> 'name'::text)));
+create index ads_data_contact on ads using gin (((data -> 'contact'::text)));
 
 /* ----------------- */
 /* subscribers table */
