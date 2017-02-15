@@ -161,6 +161,8 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     __, values = text.split(':')
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
+    logger.info('----------------------')
+    logger.info(ad_dict)
     ad_text = ad_template.format(**ad_dict)
     await chat.send_text(
         ad_text,

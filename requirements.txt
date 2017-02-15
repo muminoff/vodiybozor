@@ -3,3 +3,4 @@ asyncpg
 uvloop
 aiobotocore
 Wand==0.4.4
+hashids==1.2.0
