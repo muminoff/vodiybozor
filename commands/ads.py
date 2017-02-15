@@ -1,3 +1,6 @@
+# Queries
+from queries import user_has_draft
+
 # Helpers
 from utils.helpers import format_text
 
@@ -78,6 +81,45 @@ async def create_sale_ad_command(chat, match, logger):
 
 
 async def create_sale_ad_vehicle_command(chat, match, logger):
+
+    if await user_has_draft(pool, 1, chat.sender.get('id')):
+
+        # with await chat.bot.redis_pool as conn:
+        #     key = '{0}:{1}'.format(
+        #         chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+        #     if await conn.exists(key):
+        #         denied = format_text('''
+        #         {name}, авто-улов ҳақида эълон бергандиз.
+        #         У эълон ҳали каналга қўйилгани йўқ.
+
+        #         У эълонни бекор қилайликми?
+        #         ''')
+
+        #         keyboard = [
+        #             ['Эълонни бекор қилиш'],
+        #             ['Менюга қайтиш'],
+        #         ]
+        #         reply_keyboard_markup = {
+        #             'keyboard': keyboard,
+        #             'resize_keyboard': True,
+        #             'one_time_keyboard': True
+        #         }
+
+        #         await chat.send_text(
+        #             denied.format(name=chat.sender['first_name']),
+        #             parse_mode='Markdown',
+        #             disable_web_page_preview=True,
+        #             reply_markup=json.dumps(reply_keyboard_markup))
+        #         return
+
+        await chat.send_text(
+            format_text('''
+            You have draft in this category, delete or wait approval.
+            '''),
+            parse_mode='Markdown',
+            disable_web_page_preview=True)
+        return
+
     question = format_text('''
     Авто-улов ҳақида қисқа маълумот беринг.
     
@@ -103,41 +145,13 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
 async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
-#     with await chat.bot.redis_pool as conn:
-#         key = '{0}:{1}'.format(
-#             chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
-#         if await conn.exists(key):
-#             denied = format_text('''
-#             {name}, авто-улов ҳақида эълон бергандиз.
-#             У эълон ҳали каналга қўйилгани йўқ.
-
-#             У эълонни бекор қилайликми?
-#             ''')
-
-#             keyboard = [
-#                 ['Эълонни бекор қилиш'],
-#                 ['Менюга қайтиш'],
-#             ]
-#             reply_keyboard_markup = {
-#                 'keyboard': keyboard,
-#                 'resize_keyboard': True,
-#                 'one_time_keyboard': True
-#             }
-
-#             await chat.send_text(
-#                 denied.format(name=chat.sender['first_name']),
-#                 parse_mode='Markdown',
-#                 disable_web_page_preview=True,
-#                 reply_markup=json.dumps(reply_keyboard_markup))
-#             return
-
     ad_template = format_text('''
-    *{name}* сотилади!
-    *Йили:* {year}
-    *Пробег:* {mileage}
-    *Ҳолати:* {status}
-    *Нархи:* {price}
-    *Мурожаат учун:* {contact}
+    🚗 *{name}* сотилади!
+    ⚙️  *Йили:* {year}
+    🏃 *Пробег:* {mileage}
+    ✅ *Ҳолати:* {status}
+    💰 *Нархи:* {price}
+    📞 *Мурожаат учун:* {contact}
 
     [Водий бозор](https://t.me/vodiybozor)
     ''')
@@ -148,6 +162,11 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
     ad_text = ad_template.format(**ad_dict)
+    await chat.send_text(
+        ad_text,
+        parse_mode='Markdown',
+        disable_web_page_preview=True,
+        reply_markup=json.dumps(reply_keyboard_markup))
 
     question = format_text('''
     Эълон ёзиб олинди.
