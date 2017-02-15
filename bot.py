@@ -131,7 +131,7 @@ async def view_ads(chat, match):
 
 @bot.command(r'/reklama')
 async def make_self_ad(chat, match):
-    ad_text = '''
+    ad_text = format_text('''
     🇺🇿 Andijon bogishamol Bozordagi moshinalar savdosi
     🇷🇺 Цены автомобилей в багишамол авто бозор
 
@@ -153,7 +153,7 @@ async def make_self_ad(chat, match):
     ➖➖➖➖➖➖➖➖➖➖➖
 
     👉 [Moshina narhlari](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    '''
+    ''')
     await chat.send_text(ad_text, parse_mode='Markdown', disable_web_page_preview=True)
 
 
