@@ -129,6 +129,33 @@ async def view_ads(chat, match):
     logger.info('View ads requested by %s', chat.sender)
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
+@bot.command(r'/reklama')
+async def make_self_ad(chat, match):
+    ad_text = '''
+    🇺🇿 Andijon bogishamol Bozordagi moshinalar savdosi  
+    🇷🇺 Цены автомобилей в багишамол авто бозор 
+
+
+    ➥ Nexia 3 Ravon(evro)
+    ➥ Isuzu -3
+    ➥ Damas (1-2pozitsiya)
+    ➥ Matiz (1-4pozitsiya)
+    ➥ Matiz Best(1-3pozitsiya)
+    ➥ Spark Ravon(1-4pozitsiya)
+    ➥ Nexia-2 SOHC(1-4pozitsiya)
+    ➥ Nexia-2 DOHC(1-4pozitsiya)
+    ➥ Cobalt(1-4pozitsiya)
+    ➥ Gentra(1-4pozitsiya)
+    ➥ Orlando(1-3pozitsiya)
+    ➥ Captiva 3
+    ➥ Malibu (1-3pozitsiya)
+
+    ➖➖➖➖➖➖➖➖➖➖➖
+
+    👉 [Moshina narhlari](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
+    '''
+    await chat.send_text(ad_text, parse_mode='Markdown', disable_web_page_preview=True)
+
 
 @bot.handle("photo")
 async def get_photo(chat, match):
