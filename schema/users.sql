@@ -1,10 +1,9 @@
-DROP TABLE users;
-CREATE TABLE users (
-    id bigint PRIMARY KEY,
+create table if not exists users (
+    id bigint primary key,
     first_name text,
     last_name text,
     username text,
-    is_admin boolean DEFAULT false,
-    is_active boolean DEFAULT true,
-    joined timestamp without time zone DEFAULT timezone('Asia/Tashkent'::text, now())
+    is_admin boolean default false,
+    is_active boolean default true,
+    joined timestamp without time zone default timezone('asia/tashkent'::text, now())
 );

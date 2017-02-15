@@ -1,7 +1,6 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE IF NOT EXISTS product_types (
-    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+create table if not exists product_types (
+    id smallserial primary key,
     name text,
-    created timestamp without time zone DEFAULT timezone('Asia/Tashkent'::text, now())
+    created timestamp without time zone default timezone('asia/tashkent'::text, now())
 );
 

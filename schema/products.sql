@@ -1,17 +1,10 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE IF NOT EXISTS products (
-    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-    type uuid REFERENCES product_types(id),
+create table if not exists products (
+    id bigserial primary key,
+    type smallint references product_types(id),
     data jsonb,
-    is_sold bool DEFAULT false,
-    is_published bool DEFAULT false,
-    written_by bigint REFERENCES users(id),
-    created timestamp without time zone DEFAULT timezone('Asia/Tashkent'::text, now())
+    is_sold bool default false,
+    is_published bool default false,
+    written_by bigint references users(id),
+    created timestamp without time zone default timezone('asia/tashkent'::text, now())
 );
-    /* name text, */
-    /* year integer, */
-    /* price numeric, */
-    /* mill text, */
-    /* contact bigint, */
-    /* username text, */
-    /* image_url text, */
+
