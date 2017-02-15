@@ -82,7 +82,7 @@ async def create_sale_ad_command(chat, match, logger):
 
 async def create_sale_ad_vehicle_command(chat, match, logger):
 
-    if await user_has_draft(pool, 1, chat.sender.get('id')):
+    if await user_has_draft(chat.bot.pg_pool, 1, chat.sender.get('id')):
 
         # with await chat.bot.redis_pool as conn:
         #     key = '{0}:{1}'.format(
