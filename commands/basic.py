@@ -36,14 +36,14 @@ async def process_menu_command(chat, match, logger):
     *МЕНЮ*
 
     /ads - эълонлар
-    /sub - обуна
+    /subscribe - обуна
     /rules - канал қоидалари
     /contact - админлар билан боғланиш
     /stop - ботни тўхтатиш
 
     [Канал манзили](https://t.me/vodiybozor)
     ''')
-    logger.info('%s menu requested by', chat.sender)
+    logger.info('Menu requested by %s', chat.sender)
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -53,12 +53,12 @@ async def process_rules_command(chat, match, logger):
 
     1. Бир кунда бир тур бўйича биттадан ортиқ эълон бериш мумкин эмас.
     ''')
-    logger.info('%s eula requested by', chat.sender)
+    logger.info('Rules requested by %s', chat.sender)
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 async def process_contact_command(chat, match, logger):
-    logger.info('%s contact requested by', chat.sender)
+    logger.info('Contact requested by %s', chat.sender)
 
     contacts = format_text('''
     *Админлар:*
@@ -114,7 +114,7 @@ async def process_unknown_command(chat, match, logger):
         'one_time_keyboard': True
     }
 
-    logger.info('%s unknown requested by', chat.sender)
+    logger.info('Unknown requested by %s', chat.sender)
     await chat.send_text(
         question.format(name=chat.sender['first_name']),
         parse_mode='Markdown',
