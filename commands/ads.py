@@ -165,8 +165,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     await chat.send_text(
         ad_text,
         parse_mode='Markdown',
-        disable_web_page_preview=True,
-        reply_markup=json.dumps(reply_keyboard_markup))
+        disable_web_page_preview=True)
 
     question = format_text('''
     Эълон ёзиб олинди.
