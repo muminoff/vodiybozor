@@ -152,9 +152,9 @@ async def make_self_ad(chat, match):
     ➥ [Captiva 3](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
     ➥ [Malibu (1-3pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
 
-    ➖➖➖➖➖➖➖➖➖➖➖ (https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
+    [➖➖➖➖➖➖➖➖➖➖➖](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
 
-    👉 [Moshina narhlari 2017] 👈 (https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
+    👉 [Moshina narhlari 2017](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q) 👈 
     ''')
     await chat.send_text(ad_text, parse_mode='Markdown', disable_web_page_preview=True)
 
