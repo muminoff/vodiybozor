@@ -2,7 +2,6 @@
 from queries import user_exists
 from queries import insert_user
 from queries import deactivate_user
-from queries import get_admins
 
 # Helpers
 from utils.helpers import format_text
