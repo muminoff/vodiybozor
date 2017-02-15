@@ -106,32 +106,32 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     with await chat.bot.redis_pool as conn:
         key = '{0}:{1}'.format(
             chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
-        # if await conn.exists(key):
-        #     denied = format_text('''
-        #     {name}, сиз авто-улов ҳақида бундан олдин ҳам эълон бергандиз. Ўша эълон каналга чиқарилгандан сўнг бошқа эълон ёзишингиз мумкин.
+        if await conn.exists(key):
+            denied = format_text('''
+            {name}, сиз авто-улов ҳақида бундан олдин ҳам эълон бергандиз. Ўша эълон каналга чиқарилгандан сўнг бошқа эълон ёзишингиз мумкин.
 
-        #     Қоидалар бу ерда /rules.
-        #     ''')
-        #     await chat.send_text(denied.format(name=chat.sender['first_name']))
-        #     return
+            Қоидалар бу ерда /rules.
+            ''')
+            await chat.send_text(denied.format(name=chat.sender['first_name']))
+            return
 
-    # ad_template = format_text('''
-    # *{name}* сотилади!
-    # *Йили:* {year}
-    # *Пробег:* {mileage}
-    # *Ҳолати:* {status}
-    # *Нархи:* {price}
-    # *Мурожаат учун:* {contact}
+    ad_template = format_text('''
+    *{name}* сотилади!
+    *Йили:* {year}
+    *Пробег:* {mileage}
+    *Ҳолати:* {status}
+    *Нархи:* {price}
+    *Мурожаат учун:* {contact}
 
-    # [Водий бозор](https://t.me/vodiybozor)
-    # ''')
+    [Водий бозор](https://t.me/vodiybozor)
+    ''')
 
     text = chat.message['text']
     keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
     __, values = text.split(':')
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
-    # ad_text = ad_template.format(**ad_dict)
+    ad_text = ad_template.format(**ad_dict)
 
     # Auto-ulov id hardcoding
     # '9a67d4d9-b283-4a30-9d84-904f66cb2a56'
