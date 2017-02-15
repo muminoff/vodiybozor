@@ -132,8 +132,8 @@ async def view_ads(chat, match):
 @bot.command(r'/reklama')
 async def make_self_ad(chat, match):
     ad_text = '''
-    🇺🇿 Andijon bogishamol Bozordagi moshinalar savdosi  
-    🇷🇺 Цены автомобилей в багишамол авто бозор 
+    🇺🇿 Andijon bogishamol Bozordagi moshinalar savdosi
+    🇷🇺 Цены автомобилей в багишамол авто бозор
 
 
     ➥ Nexia 3 Ravon(evro)
