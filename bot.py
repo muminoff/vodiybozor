@@ -39,6 +39,8 @@ from commands.photos import process_photo
 from commands.contacts import process_contact
 
 
+@bot.command(r'салом')
+@bot.command(r'salom')
 @bot.command(r'/start')
 async def start(chat, match):
     await process_start_command(chat, match, logger)
@@ -90,16 +92,21 @@ async def unknown(chat, match):
 
 
 @bot.command(r'Эълон бермоқчиман')
+@bot.command(r'elon beraman')
+@bot.command(r'elon bermoqchiman')
 async def create_ad(chat, match):
     await create_ad_command(chat, match, logger)
 
 
-@bot.command(r'Сотмоқчиман')
+@bot.command(r'сотаман')
+@bot.command(r'сотмоқчиман')
+@bot.command(r'sotaman')
+@bot.command(r'sotmoqchiman')
 async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
 
-# @bot.command(r'🚗 Авто-улов')
+@bot.command(r'🚗 Авто-улов')
 @bot.command(r'Авто-улов')
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
