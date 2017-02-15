@@ -164,7 +164,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
 
 async def attach_image_to_ad_command(chat, match, logger):
     ask_image = format_text('''
-    Расм юборинг.
+    Юборинг расмни.
     ''')
     logger.info('Image file sent by %s', chat.sender)
     await chat.send_text(ask_image)
