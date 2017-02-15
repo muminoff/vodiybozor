@@ -129,6 +129,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
                 parse_mode='Markdown',
                 disable_web_page_preview=True,
                 reply_markup=json.dumps(reply_keyboard_markup))
+            return
 
     ad_template = format_text('''
     *{name}* сотилади!
