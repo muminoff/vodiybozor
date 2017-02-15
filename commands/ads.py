@@ -108,12 +108,27 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
             chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
         if await conn.exists(key):
             denied = format_text('''
-            {name}, сиз авто-улов ҳақида бундан олдин ҳам эълон бергандиз. Ўша эълон каналга чиқарилгандан сўнг бошқа эълон ёзишингиз мумкин.
+            {name}, авто-улов ҳақида эълон бергандиз.
+            У эълон ҳали каналга қўйилгани йўқ.
 
-            Қоидалар бу ерда /rules.
+            У эълонни бекор қилайликми?
             ''')
-            await chat.send_text(denied.format(name=chat.sender['first_name']))
-            return
+
+            keyboard = [
+                ['Эълонни бекор қилиш'],
+                ['Менюга қайтиш'],
+            ]
+            reply_keyboard_markup = {
+                'keyboard': keyboard,
+                'resize_keyboard': True,
+                'one_time_keyboard': True
+            }
+
+            await chat.send_text(
+                denied.format(name=chat.sender['first_name']),
+                parse_mode='Markdown',
+                disable_web_page_preview=True,
+                reply_markup=json.dumps(reply_keyboard_markup))
 
     ad_template = format_text('''
     *{name}* сотилади!
