@@ -1,6 +1,6 @@
 async def user_exists(pool, user):
     query = '''
-    SELECT EXISTS(SELECT id FROM users WHERE id=$1)
+    select exists(select id from users where id=$1)
     '''
     conn = await pool.acquire()
 
@@ -16,10 +16,10 @@ async def user_exists(pool, user):
 
 async def insert_user(pool, user):
     query = '''
-    INSERT INTO users(id, first_name, last_name, username, is_active)
-    VALUES ($1, $2, $3, $4, $5)
-    ON CONFLICT (id)
-    DO UPDATE SET (first_name, last_name, username, is_active) = ($2, $3, $4, $5)
+    insert into users(id, first_name, last_name, username, is_active)
+    values ($1, $2, $3, $4, $5)
+    on conflict (id)
+    do update set (first_name, last_name, username, is_active) = ($2, $3, $4, $5)
     '''
 
     conn = await pool.acquire()
@@ -38,9 +38,9 @@ async def insert_user(pool, user):
 
 async def deactivate_user(pool, user):
     query = '''
-    UPDATE users
-    SET is_active=false
-    WHERE id=$1
+    update users
+    set is_active=false
+    where id=$1
     '''
 
     conn = await pool.acquire()
@@ -53,9 +53,25 @@ async def deactivate_user(pool, user):
         await pool.release(conn)
 
 
+async def user_has_draft(pool, category_id, user_id):
+    query = '''
+    select exists(select id from drafts where category_id=$1 and user_id=$2)
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        result = await conn.fetchval(query, category_id, user_id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
+
+
 async def has_user_products(pool, user):
     query = '''
-    SELECT EXISTS(SELECT id FROM products WHERE written_by=$1)
+    select exists(select id from products where written_by=$1)
     '''
 
     conn = await pool.acquire()
@@ -72,7 +88,7 @@ async def has_user_products(pool, user):
 
 async def is_user_admin(pool, user):
     query = '''
-    SELECT EXISTS(SELECT id FROM users WHERE id=$1 and is_admin IS TRUE);
+    select exists(select id from users where id=$1 and is_admin is true);
     '''
 
     conn = await pool.acquire()
@@ -89,9 +105,9 @@ async def is_user_admin(pool, user):
 
 async def make_user_admin(pool, username):
     query = '''
-    UPDATE users
-    SET is_admin=true
-    WHERE username=$1
+    update users
+    set is_admin=true
+    where username=$1
     '''
 
     conn = await pool.acquire()
@@ -105,7 +121,7 @@ async def make_user_admin(pool, username):
 
 async def get_admins(pool):
     query = '''
-    SELECT array_agg(username) FROM users WHERE is_admin=True
+    select array_agg(username) from users where is_admin=true
     '''
 
     conn = await pool.acquire()

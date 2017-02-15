@@ -136,6 +136,7 @@ async def view_ads(chat, match):
     logger.info('View ads requested by %s', chat.sender)
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
+
 @bot.command(r'/reklama')
 async def make_self_ad(chat, match):
     ad_text = format_text('''

@@ -7,9 +7,6 @@ import uvloop
 # Asyncpg
 from asyncpg import create_pool as create_pg_pool
 
-# Aioredis
-from aioredis import create_pool as create_redis_pool
-
 # Aiobotocore
 from aiobotocore import get_session as boto_session
 
@@ -35,16 +32,6 @@ async def make_pg_pool():
         min_size=1,
         max_size=2)
 
-
-async def make_redis_pool():
-    redis_url = os.environ.get('REDIS_URL')
-    url = urlparse(redis_url)
-    return await create_redis_pool(
-        (url.hostname, url.port),
-        password=url.password,
-        minsize=1,
-        maxsize=2)
-
 async def make_s3_client(loop):
     aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
     aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -60,10 +47,6 @@ loop = asyncio.get_event_loop()
 # Attach postgres connection pool to bot
 pg_pool = loop.run_until_complete(make_pg_pool())
 setattr(bot, 'pg_pool', pg_pool)
-
-# Attach redis connection pool to bot
-redis_pool = loop.run_until_complete(make_redis_pool())
-setattr(bot, 'redis_pool', redis_pool)
 
 # Attach s3 client to bot
 s3_client = loop.run_until_complete(make_s3_client(loop))
