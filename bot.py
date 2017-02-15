@@ -30,6 +30,8 @@ from commands.ads import (process_ads_command, create_ad_command,
                           create_sale_ad_command, create_sale_ad_vehicle_command,
                           create_sale_ad_vehicle_accept_command)
 
+from commands.subscribe import process_subscribe_command
+
 from commands.ads import (attach_image_to_ad_command,
                           attach_no_image_to_ad_command)
 
@@ -46,6 +48,11 @@ async def start(chat, match):
 @bot.command(r'/ads')
 async def ads(chat, match):
     await process_ads_command(chat, match, logger)
+
+
+@bot.command(r'/subscribe')
+async def subscribe(chat, match):
+    await process_subscribe_command(chat, match, logger)
 
 
 @bot.command(r'Менюни кўрмоқчиман')
