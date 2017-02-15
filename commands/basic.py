@@ -106,7 +106,7 @@ async def process_unknown_command(chat, match, logger):
                 'request_contact': True
             }
         ]
-        # ['👮🏻 дмин керак', '📃 Менюни кўрмоқчиман'],
+        # ['👮🏻 дмин керак', '📃 Менюга қайтиш'],
     ]
     reply_keyboard_markup = {
         'keyboard': keyboard,

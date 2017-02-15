@@ -15,7 +15,7 @@ async def process_ads_command(chat, match, logger):
     ''')
     keyboard = [
         ['Эълон бермоқчиман', 'Эълонларни кўрмоқчиман'],
-        ['Менюни кўрмоқчиман'],
+        ['Менюга қайтиш'],
     ]
     reply_keyboard_markup = {
         'keyboard': keyboard,

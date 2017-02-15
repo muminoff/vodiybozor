@@ -55,7 +55,11 @@ async def subscribe(chat, match):
     await process_subscribe_command(chat, match, logger)
 
 
-@bot.command(r'Менюни кўрмоқчиман')
+@bot.command(r'Менюга қайтиш')
+@bot.command(r'Меню')
+@bot.command(r'menu')
+@bot.command(r'menyu')
+@bot.command(r'Menyuga qaytish')
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
