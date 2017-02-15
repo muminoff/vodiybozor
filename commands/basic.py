@@ -38,9 +38,7 @@ async def process_menu_command(chat, match, logger):
     /subscribe - обуна
     /rules - канал қоидалари
     /contact - админлар билан боғланиш
-    /stop - ботни тўхтатиш
 
-    [Канал манзили](https://t.me/vodiybozor)
     ''')
     logger.info('Menu requested by %s', chat.sender)
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
