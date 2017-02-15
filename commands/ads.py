@@ -103,33 +103,33 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
 async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
-    with await chat.bot.redis_pool as conn:
-        key = '{0}:{1}'.format(
-            chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
-        if await conn.exists(key):
-            denied = format_text('''
-            {name}, авто-улов ҳақида эълон бергандиз.
-            У эълон ҳали каналга қўйилгани йўқ.
+#     with await chat.bot.redis_pool as conn:
+#         key = '{0}:{1}'.format(
+#             chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
+#         if await conn.exists(key):
+#             denied = format_text('''
+#             {name}, авто-улов ҳақида эълон бергандиз.
+#             У эълон ҳали каналга қўйилгани йўқ.
 
-            У эълонни бекор қилайликми?
-            ''')
+#             У эълонни бекор қилайликми?
+#             ''')
 
-            keyboard = [
-                ['Эълонни бекор қилиш'],
-                ['Менюга қайтиш'],
-            ]
-            reply_keyboard_markup = {
-                'keyboard': keyboard,
-                'resize_keyboard': True,
-                'one_time_keyboard': True
-            }
+#             keyboard = [
+#                 ['Эълонни бекор қилиш'],
+#                 ['Менюга қайтиш'],
+#             ]
+#             reply_keyboard_markup = {
+#                 'keyboard': keyboard,
+#                 'resize_keyboard': True,
+#                 'one_time_keyboard': True
+#             }
 
-            await chat.send_text(
-                denied.format(name=chat.sender['first_name']),
-                parse_mode='Markdown',
-                disable_web_page_preview=True,
-                reply_markup=json.dumps(reply_keyboard_markup))
-            return
+#             await chat.send_text(
+#                 denied.format(name=chat.sender['first_name']),
+#                 parse_mode='Markdown',
+#                 disable_web_page_preview=True,
+#                 reply_markup=json.dumps(reply_keyboard_markup))
+#             return
 
     ad_template = format_text('''
     *{name}* сотилади!
@@ -148,13 +148,6 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     values = values.strip(' ').split(',')
     ad_dict = dict(zip(keys, values))
     ad_text = ad_template.format(**ad_dict)
-
-    # Auto-ulov id hardcoding
-    # '9a67d4d9-b283-4a30-9d84-904f66cb2a56'
-    with await chat.bot.redis_pool as conn:
-        key = '{0}:{1}'.format(
-            chat.sender['id'], '9a67d4d9-b283-4a30-9d84-904f66cb2a56')
-        await conn.hmset_dict(key, ad_dict)
 
     question = format_text('''
     Эълон ёзиб олинди.

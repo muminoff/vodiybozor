@@ -4,7 +4,7 @@
 /* drop table subscribers; */
 /* drop table drafts; */
 /* drop table ads; */
-/* drop table category; */
+/* drop table categories; */
 /* drop table users; */
 
 /* ---------------- */
@@ -34,10 +34,10 @@ create index inactive_users_idx on users (is_active) where (is_active=false);
 create index admin_users_idx on users (is_active) where (is_admin=true);
 create index users_username_idx on users using btree (username);
 
-/* -------------- */
-/* category table */
-/* -------------- */
-create table if not exists category (
+/* ---------------- */
+/* categories table */
+/* ---------------- */
+create table if not exists categories (
     id smallserial primary key,
     name citext,
     created timestamp default timezone('utc+5'::text, now())
@@ -48,7 +48,7 @@ create table if not exists category (
 /* ------------ */
 create table if not exists drafts (
     id bigserial primary key,
-    category_id smallint references category(id),
+    category_id smallint references categories(id),
     user_id bigint references users(id),
     data jsonb,
     created timestamp default timezone('utc+5'::text, now())
@@ -59,7 +59,7 @@ create table if not exists drafts (
 /* --------- */
 create table if not exists ads (
     id bigserial primary key,
-    category_id smallint references category(id),
+    category_id smallint references categories(id),
     user_id bigint references users(id),
     data jsonb,
     is_closed bool default false,
@@ -79,7 +79,7 @@ create index ads_data_contact on ads using gin (((data -> 'contact'::text)));
 /* subscribers table */
 /* ----------------- */
 create table if not exists subscribers (
-    category_id bigint references category(id),
+    category_id bigint references categories(id),
     user_id bigint references users(id),
     subscribed_at timestamp default timezone('utc+5'::text, now()),
     primary key (category_id, user_id)
