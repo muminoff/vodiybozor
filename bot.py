@@ -112,7 +112,6 @@ async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
 
-# @bot.command(r'🚗 Авто-улов')
 @bot.command(r'Авто: (,\s*\d+)*')
 async def create_sale_ad_vehicle_accept(chat, match):
     await create_sale_ad_vehicle_accept_command(chat, match, logger)
@@ -129,6 +128,7 @@ async def attach_no_image_to_ad(chat, match):
 
 
 @bot.command(r'Эълонларни кўрмоқчиман')
+@bot.command(r'elonlar')
 async def view_ads(chat, match):
     info = format_text('''
     [Канал манзили](https://t.me/vodiybozor)
