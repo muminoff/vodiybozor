@@ -151,7 +151,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     🏃 *Пробег:* {mileage}
     ✅ *Ҳолати:* {status}
     💰 *Нархи:* {price}
-    📞 *Мурожаат учун:* {contact}
+    📞 *Мурожаат учун:* /auto:
 
     [Водий бозор](https://t.me/vodiybozor)
     ''')

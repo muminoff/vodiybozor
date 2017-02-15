@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Commands
 from commands.basic import (process_start_command, process_menu_command,
-                            process_rules_command, process_contact_command,
+                            process_rules_command,
                             process_stop_command, process_unknown_command)
 from commands.ads import (process_ads_command, create_ad_command,
                           create_sale_ad_command, create_sale_ad_vehicle_command,
@@ -70,20 +70,6 @@ async def menu(chat, match):
 @bot.command(r'/rules')
 async def rules(chat, match):
     await process_rules_command(chat, match, logger)
-
-
-@bot.command(r'/contact')
-@bot.command(r'админ керак')
-@bot.command(r'админ')
-@bot.command(r'admin kerak')
-@bot.command(r'admin')
-async def contact(chat, match):
-    await process_contact_command(chat, match, logger)
-
-
-@bot.command(r'/stop')
-async def stop(chat, match):
-    await process_stop_command(chat, match, logger)
 
 
 @bot.default
