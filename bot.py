@@ -170,8 +170,11 @@ async def get_photo(chat, match):
         await create_sale_ad_command(chat, match, logger)
         return
 
+    category_id = await get_draft_category(chat.bot.pg_pool, chat.sender.get('id'))
+    draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'), category_id)
+    ad = await make_ad_from_draft(draft)
     url = await process_photo(chat, match, logger)
-    await chat.send_photo(url, caption='')
+    await chat.send_photo(url, caption=ad)
 
 
 @bot.handle("contact")
