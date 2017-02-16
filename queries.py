@@ -1,3 +1,5 @@
+import json
+
 async def user_exists(pool, user):
     query = '''
     select exists(select id from users where id=$1)
@@ -66,7 +68,7 @@ async def insert_draft(pool, category_id, user_id, data):
     conn = await pool.acquire()
 
     try:
-        await conn.execute(query, category_id, user_id, data)
+        await conn.execute(query, category_id, user_id, json.dumps(data))
 
     finally:
         await pool.release(conn)
