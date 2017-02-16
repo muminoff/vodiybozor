@@ -91,7 +91,7 @@ create table if not exists subscribers (
 /* -------------- */
 /* {'phone_number': '821035027155', 'first_name': 'Sardor', 'user_id': 56781796} */
 create table if not exists contacts (
-    user_id bigint references users(id),
+    user_id bigint references users(id) unique,
     phone_number text,
     created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
