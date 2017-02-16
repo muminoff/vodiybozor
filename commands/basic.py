@@ -38,7 +38,6 @@ async def process_menu_command(chat, match, logger):
     /ads - эълонлар
     /subscribe - обуна
     /rules - канал қоидалари
-    /contact - админлар билан боғланиш
 
     ''')
     logger.info('Menu requested by %s', chat.sender)
