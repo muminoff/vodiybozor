@@ -106,6 +106,42 @@ async def user_has_draft(pool, category_id, user_id):
     return result
 
 
+async def get_draft_category(pool, user_id):
+    query = '''
+    select category_id
+    from drafts
+    where user_id=$1
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        result = await conn.fetchval(query, user_id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
+
+
+async def get_draft(pool, category_id, user_id):
+    query = '''
+    select data
+    from drafts
+    where category_id=$1 and user_id=$2
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        result = await conn.fetchval(query, category_id, user_id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
+
+
 async def deactivate_user(pool, user):
     query = '''
     update users

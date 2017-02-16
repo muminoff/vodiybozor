@@ -1,16 +1,15 @@
 import asyncio
-
+import random
+import sys
 
 
 async def foo():
-    print('Running in foo ...')
-    await asyncio.sleep(1)
-    print('Explicit context switch to foo again')
+    while True:
+        await asyncio.sleep(random.random())
 
 async def bar():
-    print('Explicit context to bar')
-    await asyncio.sleep(1)
-    print('Implicit context switch back to bar')
+    while True:
+        await asyncio.sleep(random.random())
 
 
 ioloop = asyncio.get_event_loop()
