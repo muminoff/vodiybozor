@@ -48,6 +48,5 @@ async def process_photo(chat, match, logger):
 
     await chat.send_chat_action('upload_photo')
     url = 'https://s3.amazonaws.com/vodiybozor/{0}'.format(new_filename)
-    await chat.send_photo(url)
     os.remove(new_filename)
     return url

@@ -159,7 +159,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     text = chat.message['text']
     keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
     __, values = text.split(':')
-    values = values.strip(' ').split(',')
+    values = values.strip('').split(',')
     ad_dict = dict(zip(keys, values))
     logger.info('----------------------')
     logger.info(ad_dict)

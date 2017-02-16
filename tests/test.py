@@ -1,22 +1,36 @@
 import asyncpg
 import asyncio
 import os
+import json
 
 
 async def main():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
-    id = 56781796
-    user = {
-        'id': 56781796,
-        'first_name': 'Sardor',
-        'last_name': '',
-        'username': 'test'
-    }
+    category_id = 1
+    user_id = 56781796
+    data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000', 'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
+    query = '''
+    insert into drafts(category_id, user_id, data)
+    values ($1, $2, $3)
+    on conflict
+    do nothing
+    '''
 
-    if await user_exists(conn, id):
-        print('User exists')
-        await update_user(conn, id, user)
+    d = json.dumps(data)
+    print('---------->', d)
+
+    await conn.execute(query, category_id, user_id, d)
+    # user = {
+    #     'id': 56781796,
+    #     'first_name': 'Sardor',
+    #     'last_name': '',
+    #     'username': 'test'
+    # }
+
+    # if await user_exists(conn, id):
+    #     print('User exists')
+    #     await update_user(conn, id, user)
 
     await conn.close()
 

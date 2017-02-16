@@ -2,10 +2,12 @@
 /* drop all tables */
 /* --------------- */
 /* drop table subscribers; */
+/* drop table contacts; */
 /* drop table drafts; */
 /* drop table ads; */
 /* drop table categories; */
 /* drop table users; */
+/* \q */
 
 /* ---------------- */
 /* citext extension */
@@ -48,11 +50,11 @@ create table if not exists categories (
 /* drafts table */
 /* ------------ */
 create table if not exists drafts (
-    id bigserial primary key,
     category_id smallint references categories(id),
     user_id bigint references users(id),
     data jsonb,
-    created timestamptz default timezone('Asia/Tashkent'::text, now())
+    created timestamptz default timezone('Asia/Tashkent'::text, now()),
+    primary key (category_id, user_id)
 );
 
 /* --------- */

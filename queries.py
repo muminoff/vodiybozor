@@ -59,6 +59,8 @@ async def insert_draft(pool, category_id, user_id, data):
     query = '''
     insert into drafts(category_id, user_id, data)
     values ($1, $2, $3)
+    on conflict
+    do nothing
     '''
 
     conn = await pool.acquire()
@@ -72,7 +74,7 @@ async def insert_draft(pool, category_id, user_id, data):
 
 async def user_has_draft(pool, category_id, user_id):
     query = '''
-    select exists(select id from drafts where category_id=$1 and user_id=$2)
+    select exists(select data from drafts where category_id=$1 and user_id=$2)
     '''
 
     conn = await pool.acquire()
