@@ -55,18 +55,16 @@ async def insert_contact(pool, contact):
         await pool.release(conn)
 
 
-async def deactivate_user(pool, user):
+async def insert_draft(pool, category_id, user_id, data):
     query = '''
-    update users
-    set is_active=false
-    where id=$1
+    insert into drafts(category_id, user_id, data)
+    values ($1, $2, $3)
     '''
 
     conn = await pool.acquire()
 
     try:
-        id = user.get('id')
-        await conn.execute(query, id)
+        await conn.execute(query, category_id, user_id, data)
 
     finally:
         await pool.release(conn)
@@ -86,3 +84,20 @@ async def user_has_draft(pool, category_id, user_id):
         await pool.release(conn)
 
     return result
+
+
+async def deactivate_user(pool, user):
+    query = '''
+    update users
+    set is_active=false
+    where id=$1
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        id = user.get('id')
+        await conn.execute(query, id)
+
+    finally:
+        await pool.release(conn)

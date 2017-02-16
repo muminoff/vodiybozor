@@ -1,5 +1,5 @@
 # Queries
-from queries import user_has_draft
+from queries import insert_draft, user_has_draft
 
 # Helpers
 from utils.helpers import format_text
@@ -163,6 +163,8 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     ad_dict = dict(zip(keys, values))
     logger.info('----------------------')
     logger.info(ad_dict)
+    logger.info('Inserting draft ...')
+    await insert_draft(chat.bot.pg_pool, 1, chat.sender['id'], ad_dict)
     ad_text = ad_template.format(**ad_dict)
     await chat.send_text(
         ad_text,
