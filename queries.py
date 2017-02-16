@@ -36,6 +36,25 @@ async def insert_user(pool, user):
         await pool.release(conn)
 
 
+async def insert_contact(pool, contact):
+    query = '''
+    insert into contacts(user_id, phone_number)
+    values ($1, $2)
+    on conflict (user_id)
+    do update set (phone_number) = ($2)
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        user_id = contact.get('user_id')
+        phone_number = contact.get('phone_number')
+        await conn.execute(query, user_id, phone_number)
+
+    finally:
+        await pool.release(conn)
+
+
 async def deactivate_user(pool, user):
     query = '''
     update users

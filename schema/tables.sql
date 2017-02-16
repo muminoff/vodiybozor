@@ -22,17 +22,18 @@ create table if not exists users (
     username citext,
     is_admin boolean default false,
     is_active boolean default true,
-    joined timestamp default timezone('utc+5'::text, now())
+    joined timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
 /* ----------- */
 /* users index */
 /* ----------- */
-create index new_users_idx on users (date(joined));
 create index active_users_idx on users (is_active) where (is_active=true);
 create index inactive_users_idx on users (is_active) where (is_active=false);
 create index admin_users_idx on users (is_active) where (is_admin=true);
 create index users_username_idx on users using btree (username);
+create index users_first_name_idx on users using btree (first_name);
+create index users_last_name_idx on users using btree (last_name);
 
 /* ---------------- */
 /* categories table */
@@ -40,7 +41,7 @@ create index users_username_idx on users using btree (username);
 create table if not exists categories (
     id smallserial primary key,
     name citext,
-    created timestamp default timezone('utc+5'::text, now())
+    created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
 /* ------------ */
@@ -51,7 +52,7 @@ create table if not exists drafts (
     category_id smallint references categories(id),
     user_id bigint references users(id),
     data jsonb,
-    created timestamp default timezone('utc+5'::text, now())
+    created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
 /* --------- */
@@ -64,7 +65,7 @@ create table if not exists ads (
     data jsonb,
     is_closed bool default false,
     is_published bool default false,
-    created timestamp default timezone('utc+5'::text, now())
+    created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
 /* --------- */
@@ -81,6 +82,17 @@ create index ads_data_contact on ads using gin (((data -> 'contact'::text)));
 create table if not exists subscribers (
     category_id bigint references categories(id),
     user_id bigint references users(id),
-    subscribed_at timestamp default timezone('utc+5'::text, now()),
+    subscribed_at timestamptz default timezone('Asia/Tashkent'::text, now()),
     primary key (category_id, user_id)
 );
+
+/* -------------- */
+/* contacts table */
+/* -------------- */
+/* {'phone_number': '821035027155', 'first_name': 'Sardor', 'user_id': 56781796} */
+create table if not exists contacts (
+    user_id bigint references users(id),
+    phone_number text,
+    created timestamptz default timezone('Asia/Tashkent'::text, now())
+);
+create index contacts_phone_number_idx on contacts using btree (phone_number);
