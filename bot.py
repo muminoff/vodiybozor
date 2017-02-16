@@ -8,7 +8,7 @@ from utils.helpers import format_text
 # Bot
 from aiotg import Bot
 
-from queries import user_has_draft
+from queries import user_has_any_draft
 
 # Variables
 api_token = os.environ.get('API_TOKEN')
@@ -158,12 +158,15 @@ async def make_self_ad(chat, match):
 @bot.handle("photo")
 async def get_photo(chat, match):
 
-    if not await user_has_draft(chat.bot.pg_pool, chat.sender):
+    if not await user_has_any_draft(chat.bot.pg_pool, chat.sender.get('id')):
         info = format_text('''
         {name}, расм юборишдан аввал эълон ёзишингиз керак.
         ''')
         logger.info('%s user sent photo with no draft', chat.sender)
-        await chat.send_text(info.format(name=chat.sender['first_name']), parse_mode='Markdown', disable_web_page_preview=True)
+        await chat.send_text(
+                info.format(name=chat.sender['first_name']),
+                parse_mode='Markdown',
+                disable_web_page_preview=True)
         await create_sale_ad_command(chat, match, logger)
         return
 

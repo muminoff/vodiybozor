@@ -72,6 +72,22 @@ async def insert_draft(pool, category_id, user_id, data):
         await pool.release(conn)
 
 
+async def user_has_any_draft(pool, user_id):
+    query = '''
+    select exists(select data from drafts where user_id=$1)
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        result = await conn.fetchval(query, user_id)
+
+    finally:
+        await pool.release(conn)
+
+    return result
+
+
 async def user_has_draft(pool, category_id, user_id):
     query = '''
     select exists(select data from drafts where category_id=$1 and user_id=$2)
