@@ -164,9 +164,9 @@ async def get_photo(chat, match):
         ''')
         logger.info('%s user sent photo with no draft', chat.sender)
         await chat.send_text(
-                info.format(name=chat.sender['first_name']),
-                parse_mode='Markdown',
-                disable_web_page_preview=True)
+            info.format(name=chat.sender['first_name']),
+            parse_mode='Markdown',
+            disable_web_page_preview=True)
         await create_sale_ad_command(chat, match, logger)
         return
 

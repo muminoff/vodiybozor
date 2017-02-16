@@ -9,7 +9,8 @@ async def main():
     conn = await asyncpg.connect(dsn)
     category_id = 1
     user_id = 56781796
-    data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000', 'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
+    data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
+            'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
     query = '''
     insert into drafts(category_id, user_id, data)
     values ($1, $2, $3)
