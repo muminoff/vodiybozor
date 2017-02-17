@@ -2,6 +2,7 @@
 from queries import user_exists
 from queries import insert_user
 from queries import deactivate_user
+from queries import insert_visitor
 
 # Helpers
 from utils.helpers import format_text
@@ -89,6 +90,7 @@ async def process_stop_command(chat, match, logger):
 
 
 async def process_unknown_command(chat, match, logger):
+    await insert_visitor(chat.bot.pg_pool, chat.sender, chat.message)
     question = format_text('''
     {name}, қизиқиш билдирганингиз учун раҳмат.
 
