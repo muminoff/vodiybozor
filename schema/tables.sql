@@ -26,6 +26,7 @@ create table if not exists users (
   is_active boolean default true,
   joined timestamptz default timezone('Asia/Tashkent'::text, now())
 );
+create view new_users as select id, first_name, last_name, username, joined from users where extract(day from joined) = extract(day from current_date) order by joined desc;
 
 /* ----------- */
 /* users index */
