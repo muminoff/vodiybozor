@@ -157,3 +157,19 @@ async def deactivate_user(pool, user):
 
     finally:
         await pool.release(conn)
+
+
+async def insert_visitor(pool, user, message):
+    query = '''
+    insert into visitors(user_id, message)
+    values ($1, $2)
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        id = user.get('id')
+        await conn.execute(query, id, json.dumps(message))
+
+    finally:
+        await pool.release(conn)
