@@ -107,3 +107,6 @@ create table visitors (
   user_id bigint references users(id),
   message jsonb);
 create index visitors_timestamp_idx on visitors (timestamp);
+create index visitors_message_first_name_idx on visitors using gin (((message -> 'chat' -> 'first_name'::text)));
+create index visitors_message_text_idx on visitors using gin (((message -> 'text'::text)));
+create view last_visitors as select timestamp, message -> 'chat' ->> 'first_name' as visitor, message -> 'text' as text  from visitors order by timestamp limit 50;
