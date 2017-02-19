@@ -174,7 +174,7 @@ async def get_photo(chat, match):
     # draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'), category_id)
     # ad = await make_ad_from_draft(draft)
     url = await process_photo(chat, match, logger)
-    await chat.send_photo(url, caption=ad)
+    await chat.send_photo(url, caption='')
 
 
 @bot.handle("contact")
