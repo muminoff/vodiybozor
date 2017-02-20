@@ -125,7 +125,7 @@ async def inline(iq):
     }
     results = [
         {
-            "type": "article " + str(x),
+            "type": "article",
             "id": "12",
             "title": "test title " + str(x),
             "input_message_content": message,
