@@ -125,13 +125,13 @@ async def inline(iq):
     }
     results = [
         {
-            "type": "article",
+            "type": "article " + str(x),
             "id": "12",
-            "title": "test title",
+            "title": "test title " + str(x),
             "input_message_content": message,
             "description": "test description",
             "hide_url": True
-        }
+        } for x in range(10)
     ]
     await iq.answer(results)
 
