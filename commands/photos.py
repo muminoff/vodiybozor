@@ -12,31 +12,62 @@ from pathlib import PurePath
 from wand.image import Image
 from wand.display import display
 
+# Queries
+from queries import user_has_draft, get_draft, get_all_admins
+
 # Misc
 import os
+import ast
 
 
 async def process_photo(chat, match, logger):
     logger.info("Getting photo from %s", chat.sender)
     file_id = chat.message['photo'][1]['file_id']
 
-    # if not await user_has_any_draft(chat.bot.pg_pool, chat.sender.get('id')):
-    #     info = format_text('''
-    #     {name}, расм юборишдан аввал эълон ёзишингиз керак.
-    #     ''')
-    #     logger.info('%s user sent photo with no draft', chat.sender)
-    #     await chat.send_text(
-    #         info.format(name=chat.sender['first_name']),
-    #         parse_mode='Markdown',
-    #         disable_web_page_preview=True)
-    #     await create_sale_ad_command(chat, match, logger)
-    #     return
+    if await user_has_draft(chat.bot.pg_pool, chat.sender.get('id')):
+        info = format_text('''
+        {name}, расм юборишдан аввал эълон ёзишингиз керак.
+        ''')
+        logger.info('%s user sent photo with no draft', chat.sender)
+        await chat.send_text(
+            info.format(name=chat.sender['first_name']),
+            parse_mode='Markdown',
+            disable_web_page_preview=True)
+        await create_sale_ad_command(chat, match, logger)
+        return
 
-    # category_id = await get_draft_category(chat.bot.pg_pool, chat.sender.get('id'))
-    # draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'), category_id)
-    # ad = await make_ad_from_draft(draft)
+    admins = await get_all_admins(chat.bot.pg_pool)
+
+    import time
+    start = time.time()
+    # Make template
+    ad_template = format_text('''
+    🚗 {name} сотилади!
+    ⚙️  Йили: {year}
+    🏃 Пробег: {mileage}
+    🔦 Ҳолати: {status}
+    💰 Нархи: {price}
+    📞 Мурожаат: {contact}
+    ''')
+    draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
+    d = dict(draft)
+    ad_str = d.get('data')
+    ad_dict = ast.literal_eval(ad_str)
+    ad_text = ad_template.format(**ad_dict)
+
+    for admin in admins:
+        logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
+
+        private = chat.bot.private(admin['id'])
+        try:
+            await private.send_photo(url, caption=ad_text)
+        except:
+            logger.info('Cannot send photo to %s', admin['first_name'])
+            pass
+
+    logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
+    await send_ad_acceptance_message(chat, match, logger)
     url = await insert_watermark(chat, match, logger)
-    await chat.send_photo(url, caption='test photo')
 
 
 async def insert_watermark(chat, match, logger):
