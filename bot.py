@@ -189,4 +189,5 @@ async def broadcast(chat, match):
 
         Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
         ''')
-        await bot.send_message(user['id'], text.format(name=user['first_name']))
+        chat = bot.private(user['id'])
+        await bot.send_message(chat.id, text.format(name=user['first_name']))
