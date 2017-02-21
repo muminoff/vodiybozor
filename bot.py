@@ -61,6 +61,7 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
+@bot.command(r'менюга қайтиш')
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
