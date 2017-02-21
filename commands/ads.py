@@ -246,13 +246,13 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     logger.info('%s says no image', chat.sender)
     await chat.send_text(text.format(ok=random.choice(ok_text)))
     admins = await get_all_admins(chat.bot.pg_pool)
-    await chat.send_text('%d та хабар юбораман.' % len(users))
+    await chat.send_text('%d та хабар юбораман.' % len(admins))
 
     import time
     start = time.time()
 
-    for user in users:
-        logger.info('Sending to %s (%s)', user['first_name'], user['username'])
+    for admin in admins:
+        logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
 
         ad_template = format_text('''
         🚗 *{name}* сотилади!
@@ -267,13 +267,13 @@ async def attach_no_image_to_ad_command(chat, match, logger):
         draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
         ad_text = ad_template.format(**draft)
 
-        private = chat.bot.private(user['id'])
+        private = chat.bot.private(admin['id'])
         await private.send_text(
             ad_text,
             parse_mode='Markdown',
             disable_web_page_preview=True)
 
-    logger.info('{0:0.4f} time spent to broadcast message to {1} users'.format((time.time() - start), len(users)))
+    logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
 
 async def send_ad_acceptance_message(chat, match, logger):
