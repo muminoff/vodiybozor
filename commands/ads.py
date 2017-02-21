@@ -258,7 +258,7 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     🏃 *Пробег:* {mileage}
     🔦 *Ҳолати:* {status}
     💰 *Нархи:* {price}
-    📞 *Мурожаат учун:* /contact
+    📞 *Мурожаат учун:* {contact}
 
     [Водий бозор](https://t.me/vodiybozor)
     ''')
