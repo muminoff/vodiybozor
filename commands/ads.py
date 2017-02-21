@@ -172,7 +172,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('----------------------')
     logger.info(ad_dict)
     logger.info('Inserting draft ...')
-    await insert_draft(chat.bot.pg_pool, 1, chat.sender['id'], ad_dict)
+    await insert_draft(chat.bot.pg_pool, chat.sender['id'], ad_dict)
     ad_text = ad_template.format(**ad_dict)
     await chat.send_text(
         ad_text,
