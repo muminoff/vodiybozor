@@ -9,7 +9,7 @@ from utils.helpers import format_text
 from aiotg import Bot
 
 from queries import user_has_any_draft
-from queries import get_all_users
+from queries import get_all_admins
 from queries import user_is_admin
 
 # Variables
