@@ -184,11 +184,12 @@ async def broadcast(chat, match):
 
     for user in users:
         logger.info('Sending to %s (%s)', user['first_name'], user['username'])
-        text = format_text('''
-        Яна бир бор ассалому алайкум, {name}.
+        # text = format_text('''
+        # Яна бир бор ассалому алайкум, {name}.
 
-        Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
-        ''')
+        # Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
+        # ''')
+        text = '{name} test'
         ch = chat.bot.private(user['id'])
         try:
             await ch.send_text(text.format(name=user['first_name']))
