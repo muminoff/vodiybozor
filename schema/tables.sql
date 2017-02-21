@@ -66,11 +66,9 @@ COPY categories (name) FROM stdin;
 /* drafts table */
 /* ------------ */
 create table if not exists drafts (
-  category_id smallint references categories(id),
-  user_id bigint references users(id),
+  id text primary key,
   data jsonb,
-  created timestamptz default timezone('Asia/Tashkent'::text, now()),
-  primary key (category_id, user_id)
+  created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
 /* --------- */
