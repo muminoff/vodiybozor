@@ -140,7 +140,7 @@ async def cancel_ad_command(chat, match, logger):
         await chat.send_text(
             message.format(name=chat.sender['first_name']),
             parse_mode='Markdown',
-            disable_web_page_preview=True
+            disable_web_page_preview=True)
         return
 
     await delete_draft(chat.bot.pg_pool, chat.sender.get('id'))
