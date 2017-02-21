@@ -6,6 +6,7 @@
 /* drop table drafts; */
 /* drop table ads; */
 /* drop table categories; */
+/* drop table visitors; */
 /* drop table users; */
 /* \q */
 
