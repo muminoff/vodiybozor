@@ -18,6 +18,9 @@ from wand.display import display
 # Queries
 from queries import user_has_draft, get_draft, get_all_admins
 
+# Commands
+from commands.ads import create_sale_ad_command
+
 # Misc
 import os
 import ast
