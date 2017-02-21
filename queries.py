@@ -112,10 +112,10 @@ async def insert_contact(pool, contact):
         await pool.release(conn)
 
 
-async def insert_draft(pool, category_id, user_id, data):
+async def insert_draft(pool, user_id, data):
     query = '''
-    insert into drafts(category_id, user_id, data)
-    values ($1, $2, $3)
+    insert into drafts(id, data)
+    values (hash_encode($1, 'vodiybozor')::text, $2)
     on conflict
     do nothing
     '''
@@ -123,7 +123,7 @@ async def insert_draft(pool, category_id, user_id, data):
     conn = await pool.acquire()
 
     try:
-        await conn.execute(query, category_id, user_id, json.dumps(data))
+        await conn.execute(query, user_id, json.dumps(data))
 
     finally:
         await pool.release(conn)
