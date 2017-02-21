@@ -186,7 +186,7 @@ async def get_draft(pool, user_id):
     conn = await pool.acquire()
 
     try:
-        result = await conn.fetchval(query, user_id)
+        result = await conn.fetchrow(query, user_id)
 
     finally:
         await pool.release(conn)
