@@ -214,11 +214,11 @@ async def broadcast(chat, match):
         # ''')
         text = '{name} test'
         ch = chat.bot.private(user['id'])
-        try:
-            await ch.send_text(text.format(name=user['first_name']))
-        except:
-            logger.info('Cannot send to %s', user)
-            continue
+        # try:
+        await ch.send_text(text.format(name=user['first_name']))
+        # except:
+        #     logger.info('Cannot send to %s', user)
+        #     pass
 
-    logger.info('%d time spent to broadcast message to %d users', time.time() - start, len(users))
+    logger.info('{0:0.4f} time spent to broadcast message to {1] users'.format(time.time() - start), len(users))
     await chat.send_text('Хабарлар юборилди.')

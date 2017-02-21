@@ -2,9 +2,13 @@ import asyncpg
 import asyncio
 import os
 import json
+import time
+import logging
 
 
 async def main():
+    logger = logging.getLogger(__name__)
+    start = time.time()
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
 
@@ -15,6 +19,7 @@ async def main():
     '''
     result = await conn.fetchval(query, user_id)
     print(result)
+    print('{:0.4f} time spent'.format(time.time() - start))
     # category_id = 1
     # user_id = 56781796
     # data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
