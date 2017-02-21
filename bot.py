@@ -146,39 +146,11 @@ async def view_ads(chat, match):
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
-@bot.command(r'/reklama')
-async def make_self_ad(chat, match):
-    ad_text = format_text('''
-    🔱*Водий* *eBozor*🔱
-
-    🇺🇿 *Автосалондаги* *нархлар* (2017 йил 15 февраль)
-
-    🇷🇺 *Цены* *автомобилей* *в* *автосалоне* (за 15 февраля 2017 года)
-
-    ➥ [Nexia 3 Ravon(evro)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Isuzu -3](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Damas (1-2pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Matiz (1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Matiz Best(1-3pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Spark Ravon(1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Nexia-2 SOHC(1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Nexia-2 DOHC(1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Cobalt(1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Gentra(1-4pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Orlando(1-3pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Captiva 3](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    ➥ [Malibu (1-3pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-
-    [➖➖➖➖➖➖➖➖➖➖➖](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-
-    👉 [Moshina narhlari 2017](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q) 👈 
-    ''')
-    await chat.send_text(ad_text, parse_mode='Markdown', disable_web_page_preview=True)
-
-
 @bot.handle("photo")
 async def get_photo(chat, match):
     file_id = chat.message['photo'][1]['file_id']
+    logger.info('-------------')
+    logger.info(chat.message['photo'])
     await chat.send_photo(file_id)
 
     # if not await user_has_any_draft(chat.bot.pg_pool, chat.sender.get('id')):
