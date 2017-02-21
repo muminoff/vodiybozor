@@ -20,6 +20,7 @@ from queries import user_has_draft, get_draft, get_all_admins
 
 # Commands
 from commands.ads import create_sale_ad_command
+from commands.ads import send_ad_acceptance_message
 
 # Misc
 import os
