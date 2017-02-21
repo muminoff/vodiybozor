@@ -153,6 +153,32 @@ async def cancel_ad_command(chat, match, logger):
 async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     logger.info('Vehicle create ad requested by %s', chat.sender)
 
+    if await user_has_draft(chat.bot.pg_pool, chat.sender.get('id')):
+
+        denied = format_text('''
+        {name}, авто-улов ҳақида эълон бергандиз.
+        У эълон ҳали каналга қўйилгани йўқ.
+
+        У эълонни бекор қилайликми?
+        ''')
+
+        keyboard = [
+            ['Эълонни бекор қилиш'],
+            ['Менюга қайтиш'],
+        ]
+        reply_keyboard_markup = {
+            'keyboard': keyboard,
+            'resize_keyboard': True,
+            'one_time_keyboard': True
+        }
+
+        await chat.send_text(
+            denied.format(name=chat.sender['first_name']),
+            parse_mode='Markdown',
+            disable_web_page_preview=True,
+            reply_markup=json.dumps(reply_keyboard_markup))
+        return
+
     ad_template = format_text('''
     🚗 *{name}* сотилади!
     ⚙️  *Йили:* {year}
