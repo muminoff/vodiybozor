@@ -36,6 +36,7 @@ from commands.basic import process_unknown_command
 # Ad related commands
 from commands.ads import process_ads_command
 from commands.ads import create_ad_command
+from commands.ads import cancel_ad_command
 from commands.ads import create_sale_ad_command
 from commands.ads import create_sale_ad_vehicle_command
 from commands.ads import create_sale_ad_vehicle_accept_command
@@ -78,6 +79,11 @@ async def unknown(chat, match):
 @bot.command(r'эълон бермоқчиман')
 async def create_ad(chat, match):
     await create_ad_command(chat, match, logger)
+
+
+@bot.command(r'эълонни бекор қилиш')
+async def cancel_ad(chat, match):
+    await cancel_ad_command(chat, match, logger)
 
 
 @bot.command(r'сотмоқчиман')

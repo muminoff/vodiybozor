@@ -145,20 +145,35 @@ async def user_has_any_draft(pool, user_id):
     return result
 
 
-async def user_has_draft(pool, category_id, user_id):
+async def user_has_draft(pool, user_id):
     query = '''
-    select exists(select data from drafts where category_id=$1 and user_id=$2)
+    select exists(select data from drafts where id=hash_encode($1, 'vodiybozor'))
     '''
 
     conn = await pool.acquire()
 
     try:
-        result = await conn.fetchval(query, category_id, user_id)
+        result = await conn.fetchval(query, user_id)
 
     finally:
         await pool.release(conn)
 
     return result
+
+
+async def delete_draft(pool, user_id):
+    query = '''
+    delete drafts
+    where id=hash_encode($1, 'vodiybozor')
+    '''
+
+    conn = await pool.acquire()
+
+    try:
+        await conn.execute(query, user_id)
+
+    finally:
+        await pool.release(conn)
 
 
 async def get_draft_category(pool, user_id):
@@ -179,17 +194,17 @@ async def get_draft_category(pool, user_id):
     return result
 
 
-async def get_draft(pool, category_id, user_id):
+async def get_draft(pool, user_id):
     query = '''
     select data
     from drafts
-    where category_id=$1 and user_id=$2
+    where id=hash_encode($1, 'vodiybozor')
     '''
 
     conn = await pool.acquire()
 
     try:
-        result = await conn.fetchval(query, category_id, user_id)
+        result = await conn.fetchval(query, user_id)
 
     finally:
         await pool.release(conn)
