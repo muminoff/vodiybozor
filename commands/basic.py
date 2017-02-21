@@ -36,7 +36,6 @@ async def process_menu_command(chat, match, logger):
     *МЕНЮ*
 
     /ads - эълонлар
-    /subscribe - обуна
     /rules - канал қоидалари
 
     ''')
