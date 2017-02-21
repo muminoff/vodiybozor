@@ -163,7 +163,7 @@ async def user_has_draft(pool, user_id):
 
 async def delete_draft(pool, user_id):
     query = '''
-    delete drafts
+    delete from drafts
     where id=hash_encode($1, 'vodiybozor')
     '''
 
