@@ -9,6 +9,7 @@ from utils.helpers import format_text
 from aiotg import Bot
 
 from queries import user_has_any_draft
+from queries import get_all_users
 
 # Variables
 api_token = os.environ.get('API_TOKEN')
@@ -175,3 +176,17 @@ async def get_photo(chat, match):
 @bot.handle("contact")
 async def get_contact(chat, match):
     await process_contact(chat, match, logger)
+
+
+@bot.handle("sardor")
+async def broadcast(chat, match):
+    users = await get_all_users(chat.bot.pg_pool)
+
+    for user in users:
+        logger.info('Sending to %s (%s)', user['first_name'], user['username'])
+        text = format_text('''
+        Яна бир бор ассалому алайкум, {name}.
+
+        Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
+        ''')
+        await bot.send_message(user['id'], text.format(name=user['first_name']))

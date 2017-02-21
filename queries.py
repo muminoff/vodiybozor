@@ -16,6 +16,23 @@ async def user_exists(pool, user):
     return result
 
 
+async def get_all_users(pool):
+    query = '''
+    select id, username, first_name
+    from users
+    '''
+    
+    conn = await pool.acquire()
+    results = []
+
+    try:
+        results = await conn.fetch(query)
+    finally:
+        await pool.release(conn)
+
+    return results
+
+
 async def insert_user(pool, user):
     query = '''
     insert into users(id, first_name, last_name, username, is_active)
