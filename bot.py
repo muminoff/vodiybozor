@@ -178,7 +178,7 @@ async def get_contact(chat, match):
     await process_contact(chat, match, logger)
 
 
-@bot.handle("sardor")
+@bot.command(r'/boshla')
 async def broadcast(chat, match):
     users = await get_all_users(chat.bot.pg_pool)
 
