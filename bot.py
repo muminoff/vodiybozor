@@ -180,17 +180,14 @@ async def get_contact(chat, match):
 
 @bot.command(r'/boshla')
 async def broadcast(chat, match):
-    id = 56781796
-    ch = chat.bot.private(id)
-    await ch.send_text('test')
-    # users = await get_all_users(chat.bot.pg_pool)
+    users = await get_all_users(chat.bot.pg_pool)
 
-    # for user in users:
-    #     logger.info('Sending to %s (%s)', user['first_name'], user['username'])
-    #     text = format_text('''
-    #     Яна бир бор ассалому алайкум, {name}.
+    for user in users:
+        logger.info('Sending to %s (%s)', user['first_name'], user['username'])
+        text = format_text('''
+        Яна бир бор ассалому алайкум, {name}.
 
-    #     Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
-    #     ''')
-    #     ch = chat.bot.private(user['id'])
-    #     await chat.bot.send_message(ch.id, text.format(name=user['first_name']))
+        Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
+        ''')
+        ch = chat.bot.private(user['id'])
+        await ch.send_text(text.format(name=user['first_name']))
