@@ -67,11 +67,11 @@ async def process_photo(chat, match, logger):
         logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
 
         private = chat.bot.private(admin['id'])
-        # try:
-        await private.send_photo(url, caption=ad_text)
-        # except:
-        #     logger.info('Cannot send photo to %s', admin['first_name'])
-        #     pass
+        try:
+            await private.send_photo(url, caption=ad_text)
+        except:
+            logger.info('Cannot send photo to %s', admin['first_name'])
+            pass
 
     logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
