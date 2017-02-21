@@ -8,13 +8,13 @@ async def main():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
 
+    user_id = 56781796
+
     query = '''
-    select id, username, first_name from users
+    select is_admin from users where id=$1
     '''
-    result = await conn.fetch(query)
-    
-    for user in result:
-        print('--->', user['id'], user['username'], user['first_name'])
+    result = await conn.fetchval(query, user_id)
+    print(result)
     # category_id = 1
     # user_id = 56781796
     # data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',

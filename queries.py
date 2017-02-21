@@ -20,6 +20,7 @@ async def get_all_users(pool):
     query = '''
     select id, username, first_name
     from users
+    where is_admin=false and is_active=true
     '''
     
     conn = await pool.acquire()
@@ -31,6 +32,43 @@ async def get_all_users(pool):
         await pool.release(conn)
 
     return results
+
+
+async def get_all_admins(pool):
+    query = '''
+    select id, username, first_name
+    from users
+    where is_admin=true
+    '''
+    
+    conn = await pool.acquire()
+    results = []
+
+    try:
+        results = await conn.fetch(query)
+    finally:
+        await pool.release(conn)
+
+    return results
+
+
+async def user_is_admin(pool, user):
+    query = '''
+    select is_admin
+    from users
+    where id=$1
+    '''
+    
+    id = user.get('id')
+    conn = await pool.acquire()
+    ret = False
+
+    try:
+        ret = await conn.fetchval(query, id)
+    finally:
+        await pool.release(conn)
+
+    return ret
 
 
 async def insert_user(pool, user):

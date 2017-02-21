@@ -10,6 +10,7 @@ from aiotg import Bot
 
 from queries import user_has_any_draft
 from queries import get_all_users
+from queries import user_is_admin
 
 # Variables
 api_token = os.environ.get('API_TOKEN')
@@ -180,7 +181,26 @@ async def get_contact(chat, match):
 
 @bot.command(r'/boshla')
 async def broadcast(chat, match):
-    users = await get_all_users(chat.bot.pg_pool)
+    logger.info('Broadcast requested by %s', chat.sender)
+
+    if not await user_is_admin(chat.bot.pg_pool, chat.sender):
+
+        await chat.send_chat_action('typing')
+        info = format_text('''
+        Сиз админ эмассиз. 
+        ''')
+        await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
+
+        await chat.send_chat_action('typing')
+        info = format_text('''
+        Узр ома.
+        ''')
+        await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
+
+        return
+
+    users = await get_all_admins(chat.bot.pg_pool)
+    await chat.send_text('%d та хабар юбораман.' % len(users))
 
     for user in users:
         logger.info('Sending to %s (%s)', user['first_name'], user['username'])
@@ -196,3 +216,5 @@ async def broadcast(chat, match):
         except:
             logger.info('Cannot send to %s', user)
             continue
+
+    await chat.send_text('Хабарлар юборилди.')
