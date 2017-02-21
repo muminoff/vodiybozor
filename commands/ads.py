@@ -272,10 +272,14 @@ async def attach_no_image_to_ad_command(chat, match, logger):
         logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
 
         private = chat.bot.private(admin['id'])
-        await private.send_text(
-            ad_text,
-            parse_mode='Markdown',
-            disable_web_page_preview=True)
+        try:
+            await private.send_text(
+                ad_text,
+                parse_mode='Markdown',
+                disable_web_page_preview=True)
+        except:
+            logger.info('Cannot send message to %s', admin['first_name'])
+            pass
 
     logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
