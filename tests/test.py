@@ -37,7 +37,6 @@ async def main():
 #     print(result)
 #     print('{:0.4f} time spent'.format(time.time() - start))
 
-
     # category_id = 1
     # user_id = 56781796
     # data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
