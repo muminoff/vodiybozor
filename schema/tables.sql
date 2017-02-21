@@ -48,6 +48,19 @@ create table if not exists categories (
   created timestamptz default timezone('Asia/Tashkent'::text, now())
 );
 
+/* ------ */
+/* Dump   */
+/* ------ */
+COPY categories (name) FROM stdin;
+Авто-улов
+Кўчмас-мулк
+Маиший техника
+Уй-рўзғор буюмлари
+Кийим-кечак
+Спорт анжомлари
+Телефон
+\.
+
 /* ------------ */
 /* drafts table */
 /* ------------ */
