@@ -30,7 +30,7 @@ async def process_photo(chat, match, logger):
     logger.info("Getting photo from %s", chat.sender)
     file_id = chat.message['photo'][1]['file_id']
 
-    if await user_has_draft(chat.bot.pg_pool, chat.sender.get('id')):
+    if not await user_has_draft(chat.bot.pg_pool, chat.sender.get('id')):
         info = format_text('''
         {name}, расм юборишдан аввал эълон ёзишингиз керак.
         ''')
