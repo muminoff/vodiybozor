@@ -151,7 +151,7 @@ async def get_photo(chat, match):
     file_id = chat.message['photo'][1]['file_id']
     logger.info('-------------')
     logger.info(chat.message['photo'])
-    await chat.send_photo(file_id)
+    # await chat.send_photo(file_id)
 
     # if not await user_has_any_draft(chat.bot.pg_pool, chat.sender.get('id')):
     #     info = format_text('''
@@ -168,8 +168,8 @@ async def get_photo(chat, match):
     # category_id = await get_draft_category(chat.bot.pg_pool, chat.sender.get('id'))
     # draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'), category_id)
     # ad = await make_ad_from_draft(draft)
-    # url = await process_photo(chat, match, logger)
-    # await chat.send_photo(url, caption='')
+    url = await process_photo(chat, match, logger)
+    await chat.send_photo(url, caption='test photo')
 
 
 @bot.handle("contact")

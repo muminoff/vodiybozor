@@ -17,7 +17,7 @@ import os
 
 
 async def process_photo(chat, match, logger):
-    file_id = chat.message['photo'][1]['file_id']
+    file_id = chat.message['photo'][-1]['file_id']
     logger.info("Getting photo from %s", chat.sender)
 
     chunk_size = 8192
