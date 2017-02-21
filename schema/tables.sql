@@ -14,6 +14,7 @@
 /* citext extension */
 /* ---------------- */
 create extension if not exists citext;
+create extension if not exists pg_hahids;
 
 /* ----------- */
 /* users table */
