@@ -61,6 +61,7 @@ async def process_photo(chat, match, logger):
     ad_str = d.get('data')
     ad_dict = ast.literal_eval(ad_str)
     ad_text = ad_template.format(**ad_dict)
+    url = await insert_watermark(chat, match, logger)
 
     for admin in admins:
         logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
@@ -74,7 +75,6 @@ async def process_photo(chat, match, logger):
 
     logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
-    url = await insert_watermark(chat, match, logger)
 
 
 async def insert_watermark(chat, match, logger):
