@@ -43,6 +43,9 @@ from commands.ads import create_sale_ad_vehicle_accept_command
 from commands.ads import attach_image_to_ad_command
 from commands.ads import attach_no_image_to_ad_command
 
+# Photos
+from commands.photos import process_photo
+
 # Contacts
 from commands.contacts import process_contact
 
