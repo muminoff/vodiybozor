@@ -43,8 +43,6 @@ from commands.photos import process_photo
 from commands.contacts import process_contact
 
 
-@bot.command(r'салом')
-@bot.command(r'salom')
 @bot.command(r'/start')
 async def start(chat, match):
     await process_start_command(chat, match, logger)
@@ -61,11 +59,6 @@ async def subscribe(chat, match):
     await process_subscribe_command(chat, match, logger)
 
 
-@bot.command(r'Менюга қайтиш')
-@bot.command(r'Меню')
-@bot.command(r'menu')
-@bot.command(r'menyu')
-@bot.command(r'Menyuga qaytish')
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
@@ -81,38 +74,32 @@ async def unknown(chat, match):
     await process_unknown_command(chat, match, logger)
 
 
-@bot.command(r'Эълон бермоқчиман')
-@bot.command(r'elon beraman')
-@bot.command(r'elon bermoqchiman')
+@bot.command(r'эълон бермоқчиман')
 async def create_ad(chat, match):
     await create_ad_command(chat, match, logger)
 
 
-@bot.command(r'сотаман')
 @bot.command(r'сотмоқчиман')
-@bot.command(r'sotaman')
-@bot.command(r'sotmoqchiman')
 async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
 
-@bot.command(r'🚗 Авто-улов')
-@bot.command(r'Авто-улов')
+@bot.command(r'🚗 авто-улов')
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
 
-@bot.command(r'Авто: (,\s*\d+)*')
+@bot.command(r'авто: (,\s*\d+)*')
 async def create_sale_ad_vehicle_accept(chat, match):
     await create_sale_ad_vehicle_accept_command(chat, match, logger)
 
 
-@bot.command(r'✅ Расм бор')
+@bot.command(r'✅ расм бор')
 async def attach_image_to_ad(chat, match):
     await attach_image_to_ad_command(chat, match, logger)
 
 
-@bot.command(r'❌ Расм йўқ')
+@bot.command(r'❌ расм йўқ')
 async def attach_no_image_to_ad(chat, match):
     await attach_no_image_to_ad_command(chat, match, logger)
 
@@ -138,8 +125,7 @@ async def inline(iq):
     await iq.answer(results)
 
 
-@bot.command(r'Эълонларни кўрмоқчиман')
-@bot.command(r'elonlar')
+@bot.command(r'эълонларни кўрмоқчиман')
 async def view_ads(chat, match):
     info = format_text('''
     [Канал манзили](https://t.me/vodiybozor)
