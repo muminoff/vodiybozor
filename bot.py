@@ -42,9 +42,6 @@ from commands.ads import create_sale_ad_vehicle_accept_command
 from commands.ads import attach_image_to_ad_command
 from commands.ads import attach_no_image_to_ad_command
 
-# Subscriptions
-from commands.subscribe import process_subscribe_command
-
 # Contacts
 from commands.contacts import process_contact
 
@@ -61,11 +58,6 @@ async def start(chat, match):
 @bot.command(r'/ads')
 async def ads(chat, match):
     await process_ads_command(chat, match, logger)
-
-
-@bot.command(r'/subscribe')
-async def subscribe(chat, match):
-    await process_subscribe_command(chat, match, logger)
 
 
 @bot.command(r'/menu')
