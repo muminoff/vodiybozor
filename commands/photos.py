@@ -8,6 +8,9 @@ except ImportError:
 from aiohttp import web
 from pathlib import PurePath
 
+# Helpers
+from utils.helpers import format_text
+
 # Wand
 from wand.image import Image
 from wand.display import display
