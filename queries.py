@@ -176,24 +176,6 @@ async def delete_draft(pool, user_id):
         await pool.release(conn)
 
 
-async def get_draft_category(pool, user_id):
-    query = '''
-    select category_id
-    from drafts
-    where user_id=$1
-    '''
-
-    conn = await pool.acquire()
-
-    try:
-        result = await conn.fetchval(query, user_id)
-
-    finally:
-        await pool.release(conn)
-
-    return result
-
-
 async def get_draft(pool, user_id):
     query = '''
     select data

@@ -12,21 +12,27 @@ async def main():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
 
+    # query = '''
+    # insert into drafts(id, data)
+    # values (hash_encode($1, 'vodiybozor')::text, $2)
+    # on conflict
+    # do nothing
+    # '''
     query = '''
-    insert into drafts(id, data)
-    values (hash_encode($1, 'vodiybozor')::text, $2)
-    on conflict
-    do nothing
+    select data
+    from drafts
+    where id=hash_encode($1, 'vodiybozor')
     '''
 
     user_id = 56781796
-    data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
-            'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
+#     data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
+#             'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
 
-    d = json.dumps(data)
-    print('---------->', d)
+#     d = json.dumps(data)
+#     print('---------->', d)
 
-    await conn.execute(query, user_id, d)
+    draft = await conn.fetchval(query, user_id)
+    print(draft)
 
 #     user_id = 56781796
 

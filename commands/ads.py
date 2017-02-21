@@ -1,5 +1,5 @@
 # Queries
-from queries import insert_draft, user_has_draft, delete_draft
+from queries import insert_draft, user_has_draft, delete_draft, get_draft
 
 # Helpers
 from utils.helpers import format_text
@@ -179,6 +179,15 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
             reply_markup=json.dumps(reply_keyboard_markup))
         return
 
+    text = chat.message['text']
+    keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
+    __, values = text.split(':')
+    values = [v.strip() for v in values.split(',')]
+    ad_dict = dict(zip(keys, values))
+    logger.info('----------------------')
+    logger.info(ad_dict)
+    logger.info('Inserting draft ...')
+    await insert_draft(chat.bot.pg_pool, chat.sender['id'], ad_dict)
     ad_template = format_text('''
     🚗 *{name}* сотилади!
     ⚙️  *Йили:* {year}
@@ -189,16 +198,6 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
 
     [Водий бозор](https://t.me/vodiybozor)
     ''')
-
-    text = chat.message['text']
-    keys = ['name', 'year', 'mileage', 'status', 'price', 'contact']
-    __, values = text.split(':')
-    values = [v.strip() for v in values.split(',')]
-    ad_dict = dict(zip(keys, values))
-    logger.info('----------------------')
-    logger.info(ad_dict)
-    logger.info('Inserting draft ...')
-    await insert_draft(chat.bot.pg_pool, chat.sender['id'], ad_dict)
     ad_text = ad_template.format(**ad_dict)
     await chat.send_text(
         ad_text,
@@ -241,6 +240,35 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     ''')
     logger.info('%s says no image', chat.sender)
     await chat.send_text(text.format(ok=random.choice(ok_text)))
+    admins = await get_all_admins(chat.bot.pg_pool)
+    await chat.send_text('%d та хабар юбораман.' % len(users))
+
+    import time
+    start = time.time()
+
+    for user in users:
+        logger.info('Sending to %s (%s)', user['first_name'], user['username'])
+
+        ad_template = format_text('''
+        🚗 *{name}* сотилади!
+        ⚙️  *Йили:* {year}
+        🏃 *Пробег:* {mileage}
+        🔦 *Ҳолати:* {status}
+        💰 *Нархи:* {price}
+        📞 *Мурожаат учун:* /contact
+
+        [Водий бозор](https://t.me/vodiybozor)
+        ''')
+        draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
+        ad_text = ad_template.format(**draft)
+
+        private = chat.bot.private(user['id'])
+        await private.send_text(
+            ad_text,
+            parse_mode='Markdown',
+            disable_web_page_preview=True)
+
+    logger.info('{0:0.4f} time spent to broadcast message to {1} users'.format((time.time() - start), len(users)))
     await send_ad_acceptance_message(chat, match, logger)
 
 async def send_ad_acceptance_message(chat, match, logger):
