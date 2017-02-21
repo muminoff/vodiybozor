@@ -22,7 +22,6 @@
 * API_TOKEN - бот учун берилган токен
 * BOT_NAME - бот номи
 * DATABASE_URL - Postgresqlга уланиш параметрлари
-* REDIS_URL - Redisга уланиш параметрлари
 * AWS_ACCESS_KEY_ID - AWS маҳфий калитлар
 * AWS_SECRET_ACCESS_KEY - AWS маҳфий калитлар
 
