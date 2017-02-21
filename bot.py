@@ -220,5 +220,5 @@ async def broadcast(chat, match):
         #     logger.info('Cannot send to %s', user)
         #     pass
 
-    logger.info('{0:0.4f} time spent to broadcast message to {1] users'.format(time.time() - start), len(users))
+    logger.info('{0:0.4f} time spent to broadcast message to {1} users'.format(time.time() - start), len(users))
     await chat.send_text('Хабарлар юборилди.')
