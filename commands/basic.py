@@ -90,6 +90,7 @@ async def process_stop_command(chat, match, logger):
 
 
 async def process_unknown_command(chat, match, logger):
+    await insert_user(chat.bot.pg_pool, chat.sender)
     await insert_visitor(chat.bot.pg_pool, chat.sender, chat.message)
     question = format_text('''
     {name}, қизиқиш билдирганингиз учун раҳмат.
