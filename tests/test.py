@@ -12,14 +12,32 @@ async def main():
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
 
-    user_id = 56781796
-
     query = '''
-    select is_admin from users where id=$1
+    insert into drafts(id, data)
+    values (hash_encode($1, 'vodiybozor')::text, $2)
+    on conflict
+    do nothing
     '''
-    result = await conn.fetchval(query, user_id)
-    print(result)
-    print('{:0.4f} time spent'.format(time.time() - start))
+
+    user_id = 56781796
+    data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
+            'status': ' яхши', 'price': ' 7000', 'contact': ' +998931234567'}
+
+    d = json.dumps(data)
+    print('---------->', d)
+
+    await conn.execute(query, user_id, d)
+
+#     user_id = 56781796
+
+#     query = '''
+#     select is_admin from users where id=$1
+#     '''
+#     result = await conn.fetchval(query, user_id)
+#     print(result)
+#     print('{:0.4f} time spent'.format(time.time() - start))
+
+
     # category_id = 1
     # user_id = 56781796
     # data = {'name': 'Lacetti', 'year': ' 2015', 'mileage': ' 35000',
