@@ -4,6 +4,12 @@ import os
 import json
 import time
 import logging
+import textwrap
+
+
+def format_text(text):
+    return textwrap.dedent(text)
+
 
 
 async def main():
@@ -31,8 +37,24 @@ async def main():
 #     d = json.dumps(data)
 #     print('---------->', d)
 
-    draft = await conn.fetchval(query, user_id)
-    print(draft)
+    draft = await conn.fetchrow(query, user_id)
+    ad_template = format_text('''
+    🚗 *{name}* сотилади!
+    ⚙️  *Йили:* {year}
+    🏃 *Пробег:* {mileage}
+    🔦 *Ҳолати:* {status}
+    💰 *Нархи:* {price}
+    📞 *Мурожаат учун:* /contact
+
+    [Водий бозор](https://t.me/vodiybozor)
+    ''')
+    d = dict(draft)
+    # print(type(d))
+    ad_dict = d.get('data')
+    import ast
+    dd = ast.literal_eval(ad_dict)
+    print(type(dd))
+    print(ad_template.format(**dd))
 
 #     user_id = 56781796
 

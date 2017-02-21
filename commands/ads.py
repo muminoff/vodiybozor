@@ -11,6 +11,7 @@ from utils.helpers import format_text
 # Misc
 import random
 import json
+import ast
 
 # Corpus
 from corpus.ok import text as ok_text
@@ -246,26 +247,29 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     logger.info('%s says no image', chat.sender)
     await chat.send_text(text.format(ok=random.choice(ok_text)))
     admins = await get_all_admins(chat.bot.pg_pool)
-    await chat.send_text('%d та хабар юбораман.' % len(admins))
 
     import time
     start = time.time()
 
+    # Make template
+    ad_template = format_text('''
+    🚗 *{name}* сотилади!
+    ⚙️  *Йили:* {year}
+    🏃 *Пробег:* {mileage}
+    🔦 *Ҳолати:* {status}
+    💰 *Нархи:* {price}
+    📞 *Мурожаат учун:* /contact
+
+    [Водий бозор](https://t.me/vodiybozor)
+    ''')
+    draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
+    d = dict(draft)
+    ad_str = d.get('data')
+    ad_dict = ast.literal_eval(ad_str)
+    ad_text = ad_template.format(**ad_dict)
+
     for admin in admins:
         logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
-
-        ad_template = format_text('''
-        🚗 *{name}* сотилади!
-        ⚙️  *Йили:* {year}
-        🏃 *Пробег:* {mileage}
-        🔦 *Ҳолати:* {status}
-        💰 *Нархи:* {price}
-        📞 *Мурожаат учун:* /contact
-
-        [Водий бозор](https://t.me/vodiybozor)
-        ''')
-        draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
-        ad_text = ad_template.format(**draft)
 
         private = chat.bot.private(admin['id'])
         await private.send_text(
