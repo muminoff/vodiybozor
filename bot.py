@@ -43,9 +43,13 @@ from commands.photos import process_photo
 from commands.contacts import process_contact
 
 
+# Bot commands
+
 @bot.command(r'/start')
 async def start(chat, match):
+    await chat.send_chat_action('typing')
     await process_start_command(chat, match, logger)
+    await chat.send_chat_action('typing')
     await process_ads_command(chat, match, logger)
 
 
