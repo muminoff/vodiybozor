@@ -148,6 +148,7 @@ async def cancel_ad_command(chat, match, logger):
     Эълон бекор қилинди.
     ''')
     await chat.send_text(message)
+    await create_sale_ad_vehicle_command(chat, match, logger)
 
 
 async def create_sale_ad_vehicle_accept_command(chat, match, logger):
