@@ -24,7 +24,6 @@ async def process_start_command(chat, match, logger):
     Водий бозорга хуш келибсиз.
     ''')
 
-    await chat.send_chat_action('typing')
     await insert_user(chat.bot.pg_pool, chat.sender)
 
     if not await user_exists(chat.bot.pg_pool, chat.sender):
@@ -42,7 +41,6 @@ async def process_menu_command(chat, match, logger):
 
     ''')
     logger.info('Menu requested by %s', chat.sender)
-    await chat.send_chat_action('typing')
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -53,7 +51,6 @@ async def process_rules_command(chat, match, logger):
     1. Бир кунда бир тур бўйича биттадан ортиқ эълон бериш мумкин эмас.
     ''')
     logger.info('Rules requested by %s', chat.sender)
-    await chat.send_chat_action('typing')
     await chat.send_text(info, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -82,7 +79,6 @@ async def process_stop_command(chat, match, logger):
     ''')
     await deactivate_user(chat.bot.pg_pool, chat.sender)
     logger.info('%s deactivated', chat.sender)
-    await chat.send_chat_action('typing')
     await chat.send_text(
         farewell.format(name=chat.sender['first_name']),
         parse_mode='Markdown',
@@ -119,7 +115,6 @@ async def process_unknown_command(chat, match, logger):
     }
 
     logger.info('Unknown requested by %s', chat.sender)
-    await chat.send_chat_action('typing')
     await chat.send_text(
         question.format(name=chat.sender['first_name']),
         parse_mode='Markdown',

@@ -5,14 +5,12 @@
 
 #     if not await user_is_admin(chat.bot.pg_pool, chat.sender):
 
-#         await chat.send_chat_action('typing')
 #         info = format_text('''
 #         Сиз админ эмассиз.
 #         ''')
 # await chat.send_text(info, parse_mode='Markdown',
 # disable_web_page_preview=True)
 
-#         await chat.send_chat_action('typing')
 #         info = format_text('''
 #         Узр ома.
 #         ''')
