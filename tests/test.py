@@ -36,7 +36,6 @@ async def main():
 
     # await conn.execute(query, category_id, user_id, d)
 
-
     # user = {
     #     'id': 56781796,
     #     'first_name': 'Sardor',

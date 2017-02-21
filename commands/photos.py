@@ -17,9 +17,30 @@ import os
 
 
 async def process_photo(chat, match, logger):
-    await chat.send_chat_action('typing')
-    file_id = chat.message['photo'][-1]['file_id']
     logger.info("Getting photo from %s", chat.sender)
+    file_id = chat.message['photo'][1]['file_id']
+
+    # if not await user_has_any_draft(chat.bot.pg_pool, chat.sender.get('id')):
+    #     info = format_text('''
+    #     {name}, расм юборишдан аввал эълон ёзишингиз керак.
+    #     ''')
+    #     logger.info('%s user sent photo with no draft', chat.sender)
+    #     await chat.send_text(
+    #         info.format(name=chat.sender['first_name']),
+    #         parse_mode='Markdown',
+    #         disable_web_page_preview=True)
+    #     await create_sale_ad_command(chat, match, logger)
+    #     return
+
+    # category_id = await get_draft_category(chat.bot.pg_pool, chat.sender.get('id'))
+    # draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'), category_id)
+    # ad = await make_ad_from_draft(draft)
+    url = await insert_watermark(chat, match, logger)
+    await chat.send_photo(url, caption='test photo')
+
+
+async def insert_watermark(chat, match, logger):
+    file_id = chat.message['photo'][-1]['file_id']
 
     chunk_size = 8192
     file = await chat.bot.get_file(file_id)
@@ -47,7 +68,6 @@ async def process_photo(chat, match, logger):
             bucket = 'vodiybozor'
             await chat.bot.s3_client.put_object(Bucket=bucket, Key=new_filename, Body=data)
 
-    await chat.send_chat_action('upload_photo')
     url = 'https://s3.amazonaws.com/vodiybozor/{0}'.format(new_filename)
     os.remove(new_filename)
     return url

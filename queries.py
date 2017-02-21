@@ -22,7 +22,7 @@ async def get_all_users(pool):
     from users
     where is_admin=false and is_active=true
     '''
-    
+
     conn = await pool.acquire()
     results = []
 
@@ -40,7 +40,7 @@ async def get_all_admins(pool):
     from users
     where is_admin=true
     '''
-    
+
     conn = await pool.acquire()
     results = []
 
@@ -58,7 +58,7 @@ async def user_is_admin(pool, user):
     from users
     where id=$1
     '''
-    
+
     id = user.get('id')
     conn = await pool.acquire()
     ret = False
