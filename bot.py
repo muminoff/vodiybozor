@@ -190,4 +190,8 @@ async def broadcast(chat, match):
         Яқин кунларда ишга тушаман. Шунга ўзим бир текшириб кўрмоқчидим. 😊
         ''')
         ch = chat.bot.private(user['id'])
-        await ch.send_text(text.format(name=user['first_name']))
+        try:
+            await ch.send_text(text.format(name=user['first_name']))
+        except:
+            logger.info('Cannot send to %s', user)
+            continue
