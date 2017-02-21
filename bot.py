@@ -202,6 +202,9 @@ async def broadcast(chat, match):
     users = await get_all_admins(chat.bot.pg_pool)
     await chat.send_text('%d та хабар юбораман.' % len(users))
 
+    import time
+    start = time.time()
+
     for user in users:
         logger.info('Sending to %s (%s)', user['first_name'], user['username'])
         # text = format_text('''
@@ -217,4 +220,5 @@ async def broadcast(chat, match):
             logger.info('Cannot send to %s', user)
             continue
 
+    logger.info('%d time spent to broadcast message to %d users', time.time() - start, len(users))
     await chat.send_text('Хабарлар юборилди.')
