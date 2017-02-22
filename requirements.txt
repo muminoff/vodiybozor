@@ -1,5 +1,6 @@
-aiohttp==1.0.0
+aiotg
+aiohttp
 aiobotocore
 asyncpg
 uvloop
-Wand==0.4.4
+Wand
