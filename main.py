@@ -18,7 +18,7 @@ import os
 from urllib.parse import urlparse
 
 # Use uvloop
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+# asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
 async def run_bot():
