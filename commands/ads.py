@@ -263,6 +263,7 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     [Водий бозор](https://t.me/vodiybozor)
     ''')
     draft = await get_draft(chat.bot.pg_pool, chat.sender.get('id'))
+    logger.info('------- %s', type(draft))
     d = dict(draft)
     ad_str = d.get('data')
     ad_dict = ast.literal_eval(ad_str)
