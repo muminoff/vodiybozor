@@ -21,9 +21,9 @@ create extension if not exists pg_hahids;
 /* ----------- */
 create table if not exists users (
   id bigint primary key,
-  first_name citext,
+  first_name citext not null,
   last_name citext,
-  username citext,
+  username citext unique,
   is_admin boolean default false,
   is_active boolean default true,
   joined timestamptz default timezone('Asia/Tashkent'::text, now())
@@ -124,3 +124,47 @@ create index visitors_timestamp_idx on visitors (timestamp);
 create index visitors_message_first_name_idx on visitors using gin (((message -> 'chat' -> 'first_name'::text)));
 create index visitors_message_text_idx on visitors using gin (((message -> 'text'::text)));
 create view last_visitors as select timestamp, message -> 'chat' ->> 'first_name' as visitor, message -> 'text' as text  from visitors order by timestamp limit 50;
+
+/* ------------------ */
+/* event notification */
+/* ------------------ */
+create or replace function notify_event() returns trigger as $$
+  declare
+    data json;
+    notification json;
+  begin
+    if (TG_OP = 'DELETE') then
+      data = row_to_json(OLD);
+    else
+      data = row_to_json(NEW);
+    end if;
+
+    notification = json_build_object(
+                      'table', TG_TABLE_NAME,
+                      'action', lower(TG_OP),
+                      'data', data);
+    perform pg_notify('events', notification::text);
+    return null
+  end;
+$$ language plpgsql;
+
+/* ------------------ */
+/* users notification */
+/* ------------------ */
+create trigger users_notify_event
+after insert or update or delete on users
+for each row execute procedure notify_event();
+
+/* ------------------- */
+/* drafts notification */
+/* ------------------- */
+create trigger drafts_notify_event
+after insert or update or delete on drafts
+for each row execute procedure notify_event();
+
+/* ------------------- */
+/* drafts notification */
+/* ------------------- */
+create trigger drafts_notify_event
+after insert or update or delete on drafts
+for each row execute procedure notify_event();
