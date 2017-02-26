@@ -17,4 +17,4 @@ def echo(chat, match):
     return chat.reply(match.group(1))
 
 
-bot.run_webhook(webhook_url='https://cqtefsiezt.localtunnel.me')
+bot.run_webhook(webhook_url='https://aiotg.localtunnel.me')
