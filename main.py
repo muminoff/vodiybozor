@@ -29,7 +29,7 @@ async def make_pg_pool():
     dsn = os.environ.get('DATABASE_URL')
     return await create_pg_pool(
         dsn=dsn,
-        min_size=10,
+        min_size=20,
         max_size=20)
 
 async def make_s3_client(loop):
