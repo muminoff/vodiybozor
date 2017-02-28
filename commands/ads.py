@@ -28,7 +28,7 @@ async def process_ads_command(chat, match, logger):
     reply_keyboard_markup = {
         'keyboard': keyboard,
         'resize_keyboard': True,
-        'one_time_keyboard': True
+        'one_time_keyboard': False
     }
 
     logger.info('%s ads requested by', chat.sender)
@@ -50,7 +50,7 @@ async def create_ad_command(chat, match, logger):
     reply_keyboard_markup = {
         'keyboard': keyboard,
         'resize_keyboard': True,
-        'one_time_keyboard': True
+        'one_time_keyboard': False
     }
 
     logger.info('%s ads requested by', chat.sender)
@@ -74,7 +74,7 @@ async def create_sale_ad_command(chat, match, logger):
     reply_keyboard_markup = {
         'keyboard': keyboard,
         'resize_keyboard': True,
-        'one_time_keyboard': True
+        'one_time_keyboard': False
     }
 
     logger.info('%s ads requested by', chat.sender)
@@ -103,7 +103,7 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
         reply_keyboard_markup = {
             'keyboard': keyboard,
             'resize_keyboard': True,
-            'one_time_keyboard': True
+            'one_time_keyboard': False
         }
 
         await chat.send_text(
@@ -175,7 +175,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
         reply_keyboard_markup = {
             'keyboard': keyboard,
             'resize_keyboard': True,
-            'one_time_keyboard': True
+            'one_time_keyboard': False
         }
 
         await chat.send_text(
@@ -221,7 +221,7 @@ async def create_sale_ad_vehicle_accept_command(chat, match, logger):
     reply_keyboard_markup = {
         'keyboard': keyboard,
         'resize_keyboard': True,
-        'one_time_keyboard': True
+        'one_time_keyboard': False
     }
 
     logger.info('Vehicle ad accepted from %s', chat.sender)
