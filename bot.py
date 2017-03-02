@@ -44,7 +44,7 @@ from commands.ads import attach_image_to_ad_command
 from commands.ads import attach_no_image_to_ad_command
 
 # Photos
-from commands.photos import process_photo
+from commands.photos import process_photo, insert_watermark
 
 # Contacts
 from commands.contacts import process_contact
@@ -146,7 +146,9 @@ async def make_self_ad(chat, match):
 
 @bot.handle("photo")
 async def get_photo(chat, match):
-    await process_photo(chat, match, logger)
+    # await process_photo(chat, match, logger)
+    url = await insert_watermark(chat, match, logger)
+    await chat.send_photo(url)
 
 
 @bot.handle("contact")
