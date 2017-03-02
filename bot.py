@@ -95,7 +95,12 @@ async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
 
-@bot.command(r'🚗 авто-улов')
+@bot.command(r'^[aA][vV][tT][oO]$')  # avto
+@bot.command(r'^[аА][вВ][тТ][оО]$')  # авто
+@bot.command(r'^[mM][oOaA][sS][hH][iI][nN][aA]$')  # mashina
+@bot.command(r'^[мМ][оОаА][шШ][иИ][нН][аА]$')  # машина
+@bot.command(r'[aA][vV][tT][oO]\W*[uU][lL][oO][vV]$')  # avto-ulov
+@bot.command(r'[аА][вВ][тТ][оО]\W*[уУ][лЛ][оО][вВ]$')  # авто-улов
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
