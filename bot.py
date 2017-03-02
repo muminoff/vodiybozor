@@ -65,7 +65,7 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
-@bot.command(r'^менюга қайтиш$')  # менюга қайтиш
+@bot.command(r'^(менюга|menyuga)\W*(қайтиш|qaytish)$')  # менюга қайтиш
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
@@ -81,17 +81,17 @@ async def unknown(chat, match):
     await process_unknown_command(chat, match, logger)
 
 
-@bot.command(r'эълон бермоқчиман')
+@bot.command(r'^(эълон|elon)\W*(бермоқчиман|bermoqchiman)$')
 async def create_ad(chat, match):
     await create_ad_command(chat, match, logger)
 
 
-@bot.command(r'эълонни бекор қилиш')
+@bot.command(r'^(эълонни|elonni)\W*(бекор|bekor)\W*(қилиш|qilish)$')
 async def cancel_ad(chat, match):
     await cancel_ad_command(chat, match, logger)
 
 
-@bot.command(r'сотмоқчиман')
+@bot.command(r'^(сотмоқчиман|sotmoqchiman)$')
 async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
