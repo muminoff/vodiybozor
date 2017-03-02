@@ -65,10 +65,7 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
-@bot.command(r'^[mM][eE][nN][yY][uU]$')  # menyu
-@bot.command(r'^[mM][eE][nN][uU]$')  # menu
-@bot.command(r'^[mM][eE][nN][yY][uU][gG][aA]\W*[qQ][aA][yY][tT][iI][sS][hH]$')  # menu
-@bot.command(r'^[мМ][еЕ][нН][юЮ][гГ][аА]\W*[қҚ][аА][йЙ][тТ][иИ][шШ]$')  # менюга қайтиш
+@bot.command(r'^менюга қайтиш$')  # менюга қайтиш
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
@@ -99,27 +96,22 @@ async def create_sale_ad(chat, match):
     await create_sale_ad_command(chat, match, logger)
 
 
-@bot.command(r'^[aA][vV][tT][oO]$')  # avto
-@bot.command(r'^[аА][вВ][тТ][оО]$')  # авто
-@bot.command(r'^[mM][oOaA][sS][hH][iI][nN][aA]$')  # mashina
-@bot.command(r'^[мМ][оОаА][шШ][иИ][нН][аА]$')  # машина
-@bot.command(r'[aA][vV][tT][oO]\W*[uU][lL][oO][vV]$')  # avto-ulov
-@bot.command(r'[аА][вВ][тТ][оО]\W*[уУ][лЛ][оО][вВ]$')  # авто-улов
+@bot.command(r'\s*(авто|avto)\W*(ulov|улов)$')  # авто-улов
 async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
 
-@bot.command(r'\s*.*(?P<auto>[aA][vV][tT][oO]|[аА][вВ][тТ][оО]).*\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$')
+@bot.command(r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)?$')
 async def create_sale_ad_vehicle_accept(chat, match):
     await create_sale_ad_vehicle_accept_command(chat, match, logger)
 
 
-@bot.command(r'✅ расм бор')
+@bot.command(r'\s*(rasm|расм)\W*(bor|бор)$')
 async def attach_image_to_ad(chat, match):
     await attach_image_to_ad_command(chat, match, logger)
 
 
-@bot.command(r'❌ расм йўқ')
+@bot.command(r'\s*(rasm|расм)\W*(yo\'q|yuq|йўқ|йук)$')
 async def attach_no_image_to_ad(chat, match):
     await attach_no_image_to_ad_command(chat, match, logger)
 
