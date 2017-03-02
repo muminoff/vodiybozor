@@ -7,5 +7,10 @@ def format_text(text):
 
 
 def is_latin(text):
-    rule = re.compile(r'^[A-Za-z0-9]*$')
+    rule = re.compile(r'[aA-zZ]')
+    return rule.match(text) != None
+
+
+def is_cyrillic(text):
+    rule = re.compile(r'[аА-яЯ]')
     return rule.match(text) != None
