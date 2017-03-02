@@ -54,6 +54,7 @@ from commands.inline import process_inline_query
 
 
 @bot.command(r'/start')
+@bot.command(r'/on')
 async def start(chat, match):
     await process_start_command(chat, match, logger)
     await process_ads_command(chat, match, logger)
@@ -64,7 +65,10 @@ async def ads(chat, match):
     await process_ads_command(chat, match, logger)
 
 
-@bot.command(r'менюга қайтиш')
+@bot.command(r'^[mM][eE][nN][yY][uU]$')  # menyu
+@bot.command(r'^[mM][eE][nN][uU]$')  # menu
+@bot.command(r'^[mM][eE][nN][yY][uU][gG][aA]\W*[qQ][aA][yY][tT][iI][sS][hH]$')  # menu
+@bot.command(r'^[мМ][еЕ][нН][юЮ][гГ][аА]\W*[қҚ][аА][йЙ][тТ][иИ][шШ]$')  # менюга қайтиш
 @bot.command(r'/menu')
 async def menu(chat, match):
     await process_menu_command(chat, match, logger)
