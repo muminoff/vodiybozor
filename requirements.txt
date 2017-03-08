@@ -1,4 +1,4 @@
--e git://github.com/szastupov/aiotg#egg=aiotg
+aiotg
 aiohttp
 aiobotocore
 asyncpg
