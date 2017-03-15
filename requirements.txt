@@ -4,3 +4,4 @@ aiobotocore
 asyncpg
 uvloop
 Wand
+pre-commit==0.13.3
