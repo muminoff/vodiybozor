@@ -1,11 +1,21 @@
 import re
 
-regex = r"\s*(avto|авто)\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$"
-# regex = r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$'
+regex = r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)?$'
+# regex = r"\s*(avto|авто)\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$"
 
 test_str = "авто: нексия донс, 2010, 122 минг юрган  , яхши краскаси йук, 5400 kami bor, юсел 1234567"
 
+
+# m = re.search(regex, test_str)
+# print('Name ->', m.group('name'))
+# print('Year ->', m.group('year'))
+# print('Mileage ->', m.group('mileage'))
+# print('Status ->', m.group('status'))
+# print('Price ->', m.group('price'))
+# print('Contact ->', m.group('contact'))
+
 matches = re.finditer(regex, test_str)
+
 
 for matchNum, match in enumerate(matches):
     matchNum = matchNum + 1

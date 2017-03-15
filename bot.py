@@ -102,6 +102,7 @@ async def create_sale_ad_vehicle(chat, match):
 
 
 @bot.command(r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)?$')
+@bot.command(r"\s*(avto|авто)\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$")
 async def create_sale_ad_vehicle_accept(chat, match):
     await create_sale_ad_vehicle_accept_command(chat, match, logger)
 
