@@ -115,7 +115,7 @@ async def create_sale_ad_vehicle_command(chat, match, logger):
 
     question = format_text('''
     Авто-улов ҳақида қисқа маълумот беринг.
-    
+
     Эълонни бундай форматда вергул билан ажратиб ёзинг:
     ```
     Авто: Номи, йили, пробег, ҳолати, нархи, телефон рақам
@@ -270,7 +270,10 @@ async def attach_no_image_to_ad_command(chat, match, logger):
     ad_text = ad_template.format(**ad_dict)
 
     for admin in admins:
-        logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
+        logger.info(
+            'Sending to %s (%s)',
+            admin['first_name'],
+            admin['username'])
 
         private = chat.bot.private(admin['id'])
         try:
@@ -280,10 +283,13 @@ async def attach_no_image_to_ad_command(chat, match, logger):
                 disable_web_page_preview=True)
         except:
             logger.info('Cannot send message to %s', admin['first_name'])
-            pass
 
-    logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
+    logger.info(
+        '{0:0.4f} time spent to broadcast message to {1} admins'.format(
+            (time.time() - start),
+            len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
+
 
 async def send_ad_acceptance_message(chat, match, logger):
     accepted_text = format_text('''

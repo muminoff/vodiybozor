@@ -1,7 +1,6 @@
 import asyncpg
 import asyncio
 import os
-import json
 import time
 import logging
 import textwrap
@@ -11,10 +10,9 @@ def format_text(text):
     return textwrap.dedent(text)
 
 
-
 async def main():
-    logger = logging.getLogger(__name__)
-    start = time.time()
+    logging.getLogger(__name__)
+    time.time()
     dsn = os.environ.get('DATABASE_URL')
     conn = await asyncpg.connect(dsn)
 
@@ -100,6 +98,7 @@ async def user_exists(conn, id):
     result = await conn.fetchval(query, id)
     # await conn.close()
     return result
+
 
 async def update_user(conn, id, user):
     query = '''

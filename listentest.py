@@ -3,7 +3,6 @@ import asyncio
 import os
 import random
 import json
-import string
 import logging
 
 logger = logging.getLogger(__name__)
@@ -17,11 +16,12 @@ async def producer():
     while True:
 
         value = json.dumps({'foo': 'bar %f' % random.random()})
-        
+
         await conn.execute("NOTIFY test, '%s'" % value)
         await asyncio.sleep(random.random() * random.random())
 
     await conn.close()
+
 
 async def consumer(loop):
     dsn = os.environ.get('DATABASE_URL')

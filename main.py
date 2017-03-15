@@ -15,10 +15,9 @@ from bot import bot
 
 # Misc
 import os
-from urllib.parse import urlparse
 
 # Use uvloop
-# asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
 async def run_bot():
@@ -31,6 +30,7 @@ async def make_pg_pool():
         dsn=dsn,
         min_size=20,
         max_size=20)
+
 
 async def make_s3_client(loop):
     aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')

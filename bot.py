@@ -8,9 +8,32 @@ from utils.helpers import format_text
 # Bot
 from aiotg import Bot
 
-from queries import user_has_any_draft
-from queries import get_all_admins
-from queries import user_is_admin
+# Basic commands
+from commands.basic import process_start_command
+from commands.basic import process_menu_command
+from commands.basic import process_rules_command
+# from commands.basic import process_stop_command
+from commands.basic import process_unknown_command
+
+# Ad related commands
+from commands.ads import process_ads_command
+from commands.ads import create_ad_command
+from commands.ads import cancel_ad_command
+from commands.ads import create_sale_ad_command
+from commands.ads import create_sale_ad_vehicle_command
+from commands.ads import create_sale_ad_vehicle_accept_command
+from commands.ads import attach_image_to_ad_command
+from commands.ads import attach_no_image_to_ad_command
+
+# Photos
+from commands.photos import insert_watermark
+# from commands.photos import process_photo
+
+# Contacts
+from commands.contacts import process_contact
+
+# Inline queries
+from commands.inline import process_inline_query
 
 # Variables
 api_token = os.environ.get('API_TOKEN')
@@ -25,32 +48,6 @@ channel = bot.channel(os.environ.get('CHANNEL_NAME', '@VodiyBozorTest'))
 # Logging
 logger = logging.getLogger('bot')
 logging.basicConfig(level=logging.DEBUG)
-
-# Basic commands
-from commands.basic import process_start_command
-from commands.basic import process_menu_command
-from commands.basic import process_rules_command
-from commands.basic import process_stop_command
-from commands.basic import process_unknown_command
-
-# Ad related commands
-from commands.ads import process_ads_command
-from commands.ads import create_ad_command
-from commands.ads import cancel_ad_command
-from commands.ads import create_sale_ad_command
-from commands.ads import create_sale_ad_vehicle_command
-from commands.ads import create_sale_ad_vehicle_accept_command
-from commands.ads import attach_image_to_ad_command
-from commands.ads import attach_no_image_to_ad_command
-
-# Photos
-from commands.photos import process_photo, insert_watermark
-
-# Contacts
-from commands.contacts import process_contact
-
-# Inline queries
-from commands.inline import process_inline_query
 
 
 @bot.command(r'/start')
@@ -101,8 +98,10 @@ async def create_sale_ad_vehicle(chat, match):
     await create_sale_ad_vehicle_command(chat, match, logger)
 
 
-@bot.command(r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)?$')
-@bot.command(r"\s*(avto|авто)\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$")
+@bot.command(
+    r'\s*(авто|avto)\s*\:\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)\s*\,\s*([^,]+?)?$')
+@bot.command(
+    r"\s*(avto|авто)\s*\:\s*(?P<name>[^,]+?)\s*\,\s*(?P<year>[^,]+?)\s*\,\s*(?P<mileage>[^,]+?)\s*\,\s*(?P<status>[^,]+?)\s*\,\s*(?P<price>[^,]+?)\s*\,\s*(?P<contact>[^,]+?)?$")
 async def create_sale_ad_vehicle_accept(chat, match):
     await create_sale_ad_vehicle_accept_command(chat, match, logger)
 
@@ -119,7 +118,8 @@ async def attach_no_image_to_ad(chat, match):
 
 @bot.inline
 async def inline(iq):
-    await process_inline_query(chat.bot.pg_pool, iq, logger)
+    await process_inline_query(iq.bot.pg_pool, iq, logger)
+
 
 @bot.command(r'/reklama')
 async def make_self_ad(chat, match):
@@ -141,7 +141,7 @@ async def make_self_ad(chat, match):
     ➥ [Captiva 3](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
     ➥ [Malibu (1-3pozitsiya)](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
     [➖➖➖➖➖➖➖➖➖➖➖](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q)
-    👉 [Moshina narhlari 2017](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q) 👈 
+    👉 [Moshina narhlari 2017](https://telegram.me/joinchat/AAPpnD_lW9-Co3Erc8tR-Q) 👈
     ''')
     await chat.send_text(ad_text, parse_mode='Markdown', disable_web_page_preview=True)
 

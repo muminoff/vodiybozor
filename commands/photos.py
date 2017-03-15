@@ -5,7 +5,6 @@ except ImportError:
     import urllib2
 
 # Download file
-from aiohttp import web
 from pathlib import PurePath
 
 # Helpers
@@ -13,7 +12,7 @@ from utils.helpers import format_text
 
 # Wand
 from wand.image import Image
-from wand.display import display
+# from wand.display import display
 
 # Queries
 from queries import user_has_draft, get_draft, get_all_admins
@@ -29,7 +28,7 @@ import ast
 
 async def process_photo(chat, match, logger):
     logger.info("Getting photo from %s", chat.sender)
-    file_id = chat.message['photo'][1]['file_id']
+    chat.message['photo'][1]['file_id']
 
     if not await user_has_draft(chat.bot.pg_pool, chat.sender.get('id')):
         info = format_text('''
@@ -64,23 +63,27 @@ async def process_photo(chat, match, logger):
     url = await insert_watermark(chat, match, logger)
 
     for admin in admins:
-        logger.info('Sending to %s (%s)', admin['first_name'], admin['username'])
+        logger.info(
+            'Sending to %s (%s)',
+            admin['first_name'],
+            admin['username'])
 
         private = chat.bot.private(admin['id'])
         try:
             await private.send_photo(url, caption=ad_text)
         except:
             logger.info('Cannot send photo to %s', admin['first_name'])
-            pass
 
-    logger.info('{0:0.4f} time spent to broadcast message to {1} admins'.format((time.time() - start), len(admins)))
+    logger.info(
+        '{0:0.4f} time spent to broadcast message to {1} admins'.format(
+            (time.time() - start),
+            len(admins)))
     await send_ad_acceptance_message(chat, match, logger)
 
 
 async def insert_watermark(chat, match, logger):
     file_id = chat.message['photo'][-1]['file_id']
 
-    chunk_size = 8192
     file = await chat.bot.get_file(file_id)
     file_path = file["file_path"]
     p = PurePath(file_path)
