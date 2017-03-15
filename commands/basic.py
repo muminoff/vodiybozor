@@ -3,6 +3,7 @@ from queries import user_exists
 from queries import insert_user
 from queries import deactivate_user
 from queries import insert_visitor
+from queries import get_all_admins
 
 # Helpers
 from utils.helpers import format_text
@@ -12,7 +13,8 @@ import json
 
 
 async def process_start_command(chat, match, logger):
-    has_last_name = lambda u: u.get('last_name', '') != ''
+
+    has_last_name = chat.sender.get('last_name', '') != ''
     first_name = chat.sender.get('first_name')
     fullname = first_name
 
@@ -63,7 +65,7 @@ async def process_contact_command(chat, match, logger):
     ''')
 
     admins = []
-    for admin in await get_admins(chat.bot.pg_pool):
+    for admin in await get_all_admins(chat.bot.pg_pool):
         admins.append('@' + admin)
 
     text = contacts.format(admins=admins).replace('\'', '')
@@ -91,13 +93,10 @@ async def process_unknown_command(chat, match, logger):
     {name}, қизиқиш билдирганингиз учун раҳмат.
 
     Бот ҳали битгани йўқ.
-    Агар телефон рақамингизни 👇 юборсангиз, бот битганда биз сизга смс хабар юборамиз. 😊
-    ''')
-    # question = format_text('''
-    # {name}, мен ботман. Бунақа гапларни тўғриси тушунмайман. Мен фақат чой дамлайман холос. 😃
+    Агар телефон рақамингизни юборсангиз, бот битганда биз сизга смс хабар юборамиз. 😊
 
-    # Балки, админларга бирор гапингиз бордир?
-    # ''')
+    Телефон рақамни юбориш учун 👇 пастдаги тугмани босинг.
+    ''')
     keyboard = [
         [
             {
