@@ -18,7 +18,7 @@ async def process_start_command(chat, match, logger):
     first_name = chat.sender.get('first_name')
     fullname = first_name
 
-    if has_last_name(chat.sender):
+    if has_last_name:
         fullname = first_name + ' ' + chat.sender.get('last_name')
 
     greeting = format_text('''
