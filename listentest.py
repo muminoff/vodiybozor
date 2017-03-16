@@ -5,6 +5,9 @@ import random
 import json
 import logging
 
+import uvloop
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
