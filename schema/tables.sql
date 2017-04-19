@@ -40,9 +40,9 @@ order by joined desc;
 create index active_users_idx on users (is_active) where (is_active=true);
 create index inactive_users_idx on users (is_active) where (is_active=false);
 create index admin_users_idx on users (is_active) where (is_admin=true);
-create index users_username_idx on users using btree (username);
-create index users_first_name_idx on users using btree (first_name);
-create index users_last_name_idx on users using btree (last_name);
+create index users_username_idx on users using btree (lower(username));
+create index users_first_name_idx on users using btree (lower(first_name));
+create index users_last_name_idx on users using btree (lower(last_name));
 
 /* ---------------- */
 /* categories table */
