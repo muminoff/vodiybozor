@@ -158,30 +158,30 @@ async def get_contact(chat, match):
     await process_contact(chat, match, logger)
 
 
-@bot.command(r'/qwerty')
-async def test_broadcast(chat, match):
-    from queries import get_all_users
-    users = await get_all_users(chat.bot.pg_pool)
-    for user in users:
-        text = format_text('''
-        Хурматли каналимиз аъзоси!
+# @bot.command(r'/qwerty')
+# async def test_broadcast(chat, match):
+#     from queries import get_all_users
+#     users = await get_all_users(chat.bot.pg_pool)
+#     for user in users:
+#         text = format_text('''
+#         Хурматли каналимиз аъзоси!
 
-        Тез орада каналимизда яхши янгиликлар бўлиши кутилмоқда. Каналимизни кузатишда давом этинг.
-        👉 [Канал манзили](https://t.me/vodiybozor) 👈
+#         Тез орада каналимизда яхши янгиликлар бўлиши кутилмоқда. Каналимизни кузатишда давом этинг.
+#         👉 [Канал манзили](https://t.me/vodiybozor) 👈
 
-        PS.: Бот битиши билан сизга албатта телеграм ёки смс орқали хабар жўнатамиз. Биз учун ҳар бир каналимиз аъзоси қадрлидир. Вақти-вақти билан бот юбориб турадиган хабарлар сизни кўп ҳам безовта қилмайди деган умиддамиз. 🙏
-        ''')
+#         PS.: Бот битиши билан сизга албатта телеграм ёки смс орқали хабар жўнатамиз. Биз учун ҳар бир каналимиз аъзоси қадрлидир. Вақти-вақти билан бот юбориб турадиган хабарлар сизни кўп ҳам безовта қилмайди деган умиддамиз. 🙏
+#         ''')
 
-        logger.info(
-            'Sending to %s (%s)',
-            user['first_name'],
-            user['username'])
+#         logger.info(
+#             'Sending to %s (%s)',
+#             user['first_name'],
+#             user['username'])
 
-        private = chat.bot.private(user['id'])
-        try:
-            await private.send_text(
-                text,
-                parse_mode='Markdown',
-                disable_web_page_preview=True)
-        except:
-            logger.info('Cannot send message to %s', user['first_name'])
+#         private = chat.bot.private(user['id'])
+#         try:
+#             await private.send_text(
+#                 text,
+#                 parse_mode='Markdown',
+#                 disable_web_page_preview=True)
+#         except:
+#             logger.info('Cannot send message to %s', user['first_name'])
