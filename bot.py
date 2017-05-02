@@ -163,8 +163,6 @@ async def test_broadcast(chat, match):
     from queries import get_all_users
     users = await get_all_users(chat.bot.pg_pool)
     for user in users:
-        print('  ->', user)
-
         text = '''
         Водий бозор - халқ канали!
         '''
