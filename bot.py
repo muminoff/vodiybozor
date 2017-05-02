@@ -169,4 +169,16 @@ async def test_broadcast(chat, match):
         Водий бозор - халқ канали!
         '''
 
-        await chat.send_text(text, parse_mode='Markdown', disable_web_page_preview=True)
+        logger.info(
+            'Sending to %s (%s)',
+            user['first_name'],
+            user['username'])
+
+        private = chat.bot.private(user['id'])
+        try:
+            await private.send_text(
+                text,
+                parse_mode='Markdown',
+                disable_web_page_preview=True)
+        except:
+            logger.info('Cannot send message to %s', user['first_name'])
