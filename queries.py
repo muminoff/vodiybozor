@@ -20,7 +20,7 @@ async def get_all_users(pool):
     query = '''
     select id, username, first_name
     from users
-    where is_admin=false and is_active=true
+    where and is_active=true
     '''
 
     conn = await pool.acquire()
